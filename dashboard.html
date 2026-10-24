@@ -21,7 +21,7 @@
     <meta name="twitter:image" content="assets/img/paypause-logo-full.png" />
 
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="assets/css/dashboard.css" />
+    <link rel="stylesheet" href="assets/css/dashboard.css?v=20261025-2" />
     <link rel="stylesheet" href="assets/css/live.css" />
   </head>
   <body>
@@ -107,7 +107,10 @@
         <div class="demo-banner">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
           <span><b style="color:var(--text)">Live demo.</b> Everything runs locally in your browser — create cards, run cancellations, then reset whenever you like.</span>
-          <button id="reset-demo">Reset demo data</button>
+          <div class="demo-banner__actions">
+            <button id="renewal-demo">▶ 10-second renewal demo</button>
+            <button id="reset-demo">Reset demo data</button>
+          </div>
         </div>
 
         <!-- ============ OVERVIEW ============ -->
@@ -363,9 +366,84 @@
       </div>
     </div>
 
+    <!-- ============ MODAL: 10-SECOND RENEWAL DEMO ============ -->
+    <div class="modal-backdrop" id="modal-renewal-demo" data-state="ready">
+      <div class="modal renewal-demo" role="dialog" aria-modal="true" aria-labelledby="renewal-demo-title" aria-describedby="renewal-demo-description">
+        <div class="modal__head">
+          <div>
+            <span class="renewal-demo__eyebrow">Guided live simulation</span>
+            <h3 id="renewal-demo-title">Block the card before renewal</h3>
+            <p id="renewal-demo-description">Freeze the subscription card now, then watch its next renewal charge get declined.</p>
+          </div>
+          <button class="modal__close" data-close-modal aria-label="Close renewal demo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="renewal-demo__summary">
+          <div class="renewal-demo__merchant">
+            <span class="renewal-demo__logo">CG</span>
+            <span><b>ChatGPT Plus</b><small>Monthly subscription</small></span>
+          </div>
+          <div class="renewal-demo__amount"><b>₹1,999.00</b><small>renewal charge</small></div>
+        </div>
+
+        <div class="renewal-demo__card" id="demo-card">
+          <div class="renewal-demo__card-top">
+            <span class="renewal-demo__card-brand">Ⅱ PAUSE CARD</span>
+            <span class="renewal-demo__card-status" id="demo-card-status">ACTIVE</span>
+          </div>
+          <div class="renewal-demo__card-number" id="demo-card-number">5398 84•• •••• ••••</div>
+          <div class="renewal-demo__card-bottom">
+            <span><small>Locked to</small><b>ChatGPT Plus</b></span>
+            <span><small>Renewal allowance</small><b id="demo-card-limit">₹1,999.00</b></span>
+          </div>
+        </div>
+
+        <div class="renewal-demo__clock">
+          <span class="renewal-demo__status" id="demo-status"><i></i><span id="demo-status-text">Renewal due soon</span></span>
+          <small id="demo-countdown-label">Time until renewal</small>
+          <time id="demo-countdown" datetime="PT10S" role="timer" aria-label="Time until renewal">00:10</time>
+        </div>
+        <div class="renewal-demo__progress" aria-hidden="true"><i id="demo-progress"></i></div>
+
+        <ol class="renewal-demo__steps">
+          <li class="done" id="demo-step-detect">
+            <span class="renewal-demo__step-icon">1</span>
+            <span><b>Renewal detected</b><small>₹1,999 charge is scheduled</small></span>
+          </li>
+          <li id="demo-step-shield">
+            <span class="renewal-demo__step-icon">2</span>
+            <span><b id="demo-shield-label">Card blocked early</b><small id="demo-shield-detail">Not blocked yet</small></span>
+          </li>
+          <li id="demo-step-block">
+            <span class="renewal-demo__step-icon">3</span>
+            <span><b id="demo-block-label">Renewal declined</b><small id="demo-block-detail">Waiting for renewal attempt</small></span>
+          </li>
+        </ol>
+
+        <div class="renewal-demo__result" id="demo-result" aria-live="polite" hidden>
+          <span class="renewal-demo__result-icon" id="demo-result-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <span><b id="demo-result-title">₹1,999 charge blocked</b><small id="demo-result-copy">Your Pause Card declined the renewal.</small></span>
+        </div>
+
+        <div class="renewal-demo__actions">
+          <button type="button" class="btn btn--primary" id="demo-protect">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            Block card before renewal
+          </button>
+          <button type="button" class="btn btn--pause" id="demo-skip">Skip without blocking</button>
+          <button type="button" class="btn btn--primary" id="demo-replay" hidden>Run 10-second demo again</button>
+        </div>
+        <p class="renewal-demo__note">Simulation only · no real subscription, card or money is connected.</p>
+      </div>
+    </div>
+
     <script src="assets/js/data.js"></script>
     <script src="assets/js/ui.js"></script>
     <script src="assets/js/live.js"></script>
-    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/dashboard.js?v=20261025-3"></script>
   </body>
 </html>

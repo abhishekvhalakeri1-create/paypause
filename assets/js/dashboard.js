@@ -746,6 +746,176 @@
   }
 
   /* ============================================================
+     Guided 10-second renewal demo (isolated, repeatable simulation)
+     ============================================================ */
+  const renewalDemoModal = $("#modal-renewal-demo");
+  const DEMO_DURATION = 10 * 1000;
+  const DEMO_CHARGE = 1999;
+  let demoEndsAt = 0;
+  let demoTimer = null;
+  let demoCard = null;
+  let demoProtected = false;
+  let demoComplete = false;
+
+  function stopDemoClock() {
+    if (demoTimer) clearInterval(demoTimer);
+    demoTimer = null;
+  }
+
+  function updateDemoClock() {
+    const remaining = Math.max(0, demoEndsAt - Date.now());
+    const seconds = Math.ceil(remaining / 1000);
+    const timer = $("#demo-countdown");
+    timer.textContent = `${utils.pad2(Math.floor(seconds / 60))}:${utils.pad2(seconds % 60)}`;
+    timer.setAttribute("datetime", `PT${seconds}S`);
+    const elapsed = Math.min(100, Math.max(0, ((DEMO_DURATION - remaining) / DEMO_DURATION) * 100));
+    $("#demo-progress").style.width = `${elapsed}%`;
+    return remaining;
+  }
+
+  function resetRenewalDemo() {
+    stopDemoClock();
+    demoEndsAt = Date.now() + DEMO_DURATION;
+    demoCard = utils.makePauseCard({
+      merchant: "ChatGPT Plus",
+      cap: DEMO_CHARGE,
+      autoLockAt: demoEndsAt,
+    });
+    demoProtected = false;
+    demoComplete = false;
+    renewalDemoModal.dataset.state = "ready";
+
+    $("#demo-status-text").textContent = "Renewal due soon";
+    $("#demo-countdown-label").textContent = "Time until renewal";
+    $("#demo-card-status").textContent = "ACTIVE";
+    $("#demo-card-number").textContent = demoCard.number;
+    $("#demo-card-limit").textContent = utils.money(DEMO_CHARGE);
+    $("#demo-shield-label").textContent = "Card blocked early";
+    $("#demo-shield-detail").textContent = "Not blocked yet";
+    $("#demo-block-label").textContent = "Renewal declined";
+    $("#demo-block-detail").textContent = "Waiting for renewal attempt";
+    $("#demo-step-shield").classList.remove("done", "failed");
+    $("#demo-step-block").classList.remove("done", "failed");
+    $("#demo-result").hidden = true;
+
+    const protect = $("#demo-protect");
+    protect.hidden = false;
+    protect.disabled = false;
+    protect.className = "btn btn--primary";
+    protect.innerHTML = `${I.lock} Block card before renewal`;
+    const skip = $("#demo-skip");
+    skip.hidden = false;
+    skip.disabled = false;
+    skip.className = "btn btn--pause";
+    skip.textContent = "Skip without blocking";
+    $("#demo-replay").hidden = true;
+
+    updateDemoClock();
+    demoTimer = setInterval(() => {
+      if (updateDemoClock() <= 0) finishRenewalDemo();
+    }, 250);
+  }
+
+  function openRenewalDemo() {
+    resetRenewalDemo();
+    ui.openModal("modal-renewal-demo");
+  }
+
+  function armRenewalDemo() {
+    if (demoComplete || demoProtected || !demoCard) return;
+    const remaining = Math.max(0, demoEndsAt - Date.now());
+    if (remaining <= 0) return finishRenewalDemo();
+
+    const seconds = Math.ceil(remaining / 1000);
+    const timeLeft = `${utils.pad2(Math.floor(seconds / 60))}:${utils.pad2(seconds % 60)}`;
+    demoProtected = true;
+    demoCard.status = "locked";
+    demoCard.cap = 0;
+    demoCard.autoLockAt = Date.now();
+    renewalDemoModal.dataset.state = "protected";
+
+    $("#demo-card-status").textContent = "BLOCKED";
+    $("#demo-card-limit").textContent = utils.money(0);
+    $("#demo-status-text").textContent = "Card blocked before renewal";
+    $("#demo-countdown-label").textContent = "Time until renewal · card already blocked";
+    $("#demo-shield-label").textContent = "Card blocked early";
+    $("#demo-shield-detail").textContent = `Blocked with ${timeLeft} left · ₹0 available`;
+    $("#demo-step-shield").classList.add("done");
+    $("#demo-block-detail").textContent = "Renewal attempt will be declined";
+    $("#demo-result").hidden = false;
+    $("#demo-result-title").textContent = "Card blocked before renewal";
+    $("#demo-result-copy").textContent = `Blocked with ${timeLeft} remaining. ChatGPT Plus can no longer use this card, so the upcoming ${utils.money(DEMO_CHARGE)} renewal will be declined.`;
+    $("#demo-result-icon").innerHTML = I.lock;
+    $("#demo-protect").hidden = true;
+
+    const skip = $("#demo-skip");
+    skip.className = "btn btn--primary";
+    skip.innerHTML = `${I.zap} Try ${utils.money(DEMO_CHARGE)} renewal charge`;
+    skip.focus();
+  }
+
+  function finishRenewalDemo() {
+    if (demoComplete) return;
+    demoComplete = true;
+    stopDemoClock();
+    demoEndsAt = Date.now();
+    updateDemoClock();
+    $("#demo-countdown-label").textContent = "Renewal attempted just now";
+    $("#demo-protect").hidden = true;
+    $("#demo-skip").hidden = true;
+    $("#demo-result").hidden = false;
+    $("#demo-replay").hidden = false;
+
+    const resultIcon = $("#demo-result-icon");
+    if (demoProtected && demoCard) {
+      renewalDemoModal.dataset.state = "blocked";
+      demoCard.status = "locked";
+      demoCard.cap = 0;
+      demoCard.blockedAmount = DEMO_CHARGE;
+      $("#demo-card-status").textContent = "BLOCKED";
+      $("#demo-card-limit").textContent = utils.money(0);
+      $("#demo-status-text").textContent = "Renewal declined";
+      $("#demo-block-label").textContent = "Renewal declined";
+      $("#demo-block-detail").textContent = `${utils.money(DEMO_CHARGE)} blocked · nothing paid`;
+      $("#demo-step-block").classList.add("done");
+      $("#demo-result-title").textContent = `${utils.money(DEMO_CHARGE)} renewal declined`;
+      $("#demo-result-copy").textContent = `The card was already blocked before renewal. ChatGPT Plus attempted to charge Pause Card ···· ${last4(demoCard.number)}, and its ₹0 limit declined the payment.`;
+      resultIcon.innerHTML = I.check;
+    } else {
+      renewalDemoModal.dataset.state = "charged";
+      if (demoCard) {
+        $("#demo-card-status").textContent = "ACTIVE";
+        $("#demo-card-limit").textContent = utils.money(DEMO_CHARGE);
+      }
+      $("#demo-status-text").textContent = "Renewal charged";
+      $("#demo-shield-detail").textContent = "Card was not blocked in time";
+      $("#demo-block-label").textContent = "Charge approved";
+      $("#demo-block-detail").textContent = `${utils.money(DEMO_CHARGE)} paid · replay to block it`;
+      $("#demo-step-block").classList.add("failed");
+      $("#demo-result-title").textContent = `${utils.money(DEMO_CHARGE)} renewal charged`;
+      $("#demo-result-copy").textContent = "The card was still active when the renewal arrived. Replay and select “Block card before renewal” to stop the charge.";
+      resultIcon.innerHTML = I.alert;
+    }
+    $("#demo-replay").focus();
+  }
+
+  $("#renewal-demo").addEventListener("click", openRenewalDemo);
+  $("#demo-protect").addEventListener("click", armRenewalDemo);
+  $("#demo-skip").addEventListener("click", () => {
+    if (!demoComplete) finishRenewalDemo();
+  });
+  $("#demo-replay").addEventListener("click", () => {
+    resetRenewalDemo();
+    $("#demo-protect").focus();
+  });
+  renewalDemoModal.addEventListener("click", (e) => {
+    if (e.target === renewalDemoModal || e.target.closest("[data-close-modal]")) stopDemoClock();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && renewalDemoModal.classList.contains("open")) stopDemoClock();
+  });
+
+  /* ============================================================
      Global click delegation
      ============================================================ */
   document.addEventListener("click", (e) => {
@@ -927,6 +1097,7 @@
   }
 
   /* ---------------- boot ---------------- */
+  const autoOpenRenewalDemo = new URLSearchParams(window.location.search).get("demo") === "renewal";
   renderGreeting();
   renderAll();
   setInterval(tickCountdowns, 1000);
@@ -935,13 +1106,17 @@
   if (!state.onboarded) {
     state.onboarded = true;
     save();
-    setTimeout(() => {
-      ui.toast(
-        "Welcome to your PayPause dashboard",
-        "This is a live demo — every card, timer and cancellation runs entirely in your browser.",
-        "info",
-        5600
-      );
-    }, 800);
+    if (!autoOpenRenewalDemo) {
+      setTimeout(() => {
+        ui.toast(
+          "Welcome to your PayPause dashboard",
+          "This is a live demo — every card, timer and cancellation runs entirely in your browser.",
+          "info",
+          5600
+        );
+      }, 800);
+    }
   }
+
+  if (autoOpenRenewalDemo) setTimeout(openRenewalDemo, 250);
 })();

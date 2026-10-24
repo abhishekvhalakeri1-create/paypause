@@ -11,10 +11,12 @@ virtualConsole.on("jsdomError", (e) => errors.push("jsdomError: " + e.message));
 virtualConsole.on("error", (e) => errors.push("console.error: " + e));
 
 function loadPage(file) {
-  let html = readFileSync(join(root, file), "utf8");
+  const filePath = file.split("?")[0];
+  let html = readFileSync(join(root, filePath), "utf8");
   // inline local scripts so jsdom executes them without network access
   html = html.replace(/<script src="([^"]+)"><\/script>/g, (m, src) => {
-    const code = readFileSync(join(root, src), "utf8");
+    const srcPath = src.split("?")[0];
+    const code = readFileSync(join(root, srcPath), "utf8");
     return "<script>" + code + "</script>";
   });
   const dom = new JSDOM(html, {
@@ -222,7 +224,46 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   if ($$(".trial-card").length !== 3) throw new Error("reset trials failed");
   if (window.PP.state.activity.length !== 5) throw new Error("reset activity feed failed");
 
-  console.log("✓ dashboard: stats, views, filters, cards, wizard, trials, reset");
+  // guided 10-second renewal demo: block the card, then attempt the renewal
+  $("#renewal-demo").click();
+  if (!$("#modal-renewal-demo").classList.contains("open")) throw new Error("renewal demo did not open");
+  if (!/^(00:10|00:09)$/.test($("#demo-countdown").textContent))
+    throw new Error("renewal demo did not start at 10 seconds: " + $("#demo-countdown").textContent);
+  $("#demo-protect").click();
+  if ($("#modal-renewal-demo").dataset.state !== "protected") throw new Error("card was not blocked before renewal");
+  if ($("#demo-card-status").textContent !== "BLOCKED" || !$("#demo-card-limit").textContent.includes("₹0.00"))
+    throw new Error("demo card did not visibly switch to blocked at ₹0");
+  if ($("#demo-countdown").textContent === "00:00") throw new Error("card was not blocked before the renewal deadline");
+  if ($("#demo-result").hidden || $("#demo-result-title").textContent !== "Card blocked before renewal")
+    throw new Error("pre-renewal block confirmation missing");
+  $("#demo-skip").click();
+  if ($("#modal-renewal-demo").dataset.state !== "blocked") throw new Error("renewal charge was not blocked");
+  if ($("#demo-result").hidden || !$("#demo-result-title").textContent.includes("₹1,999"))
+    throw new Error("blocked renewal result missing");
+  if (!$("#demo-step-block").classList.contains("done")) throw new Error("blocked step not completed");
+
+  // replay also covers the unprotected outcome, then close to stop the timer
+  $("#demo-replay").click();
+  if ($("#modal-renewal-demo").dataset.state !== "ready" || !$("#demo-result").hidden)
+    throw new Error("renewal demo did not reset");
+  $("#demo-skip").click();
+  if ($("#modal-renewal-demo").dataset.state !== "charged") throw new Error("unprotected renewal outcome missing");
+  $("#demo-replay").click();
+  $("#modal-renewal-demo [data-close-modal]").click();
+  if ($("#modal-renewal-demo").classList.contains("open")) throw new Error("renewal demo did not close");
+
+  // direct landing-page URL auto-opens the same working demo
+  const directDom = loadPage("dashboard.html?demo=renewal");
+  const directDoc = directDom.window.document;
+  await sleep(400);
+  if (!directDoc.querySelector("#modal-renewal-demo").classList.contains("open"))
+    throw new Error("direct demo URL did not auto-open the modal");
+  directDoc.querySelector("#demo-protect").click();
+  if (directDoc.querySelector("#demo-card-status").textContent !== "BLOCKED")
+    throw new Error("direct demo URL could not block the card");
+  directDom.window.close();
+
+  console.log("✓ dashboard: stats, views, filters, cards, wizard, trials, reset, pre-renewal card block");
 }
 
 /* ---------------- community (Reddit-style) ---------------- */

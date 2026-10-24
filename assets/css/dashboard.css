@@ -1202,15 +1202,387 @@ body {
   color: var(--violet-bright);
   flex: none;
 }
-.demo-banner button {
+.demo-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   margin-left: auto;
+  flex: none;
+}
+.demo-banner button {
   color: var(--violet-bright);
   font-weight: 700;
   font-size: 12.5px;
   flex: none;
 }
+.demo-banner #renewal-demo {
+  padding: 7px 11px;
+  border-radius: 8px;
+  background: var(--grad-brand);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(18, 138, 101, 0.2);
+}
 .demo-banner button:hover {
   text-decoration: underline;
+}
+
+/* ---------- Guided 60-second renewal demo ---------- */
+.renewal-demo {
+  width: min(650px, 100%);
+}
+.renewal-demo [hidden] {
+  display: none !important;
+}
+.renewal-demo__eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--violet-bright);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.renewal-demo__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 17px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.renewal-demo__merchant {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.renewal-demo__logo {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #10a37f, #0b5f4c);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+.renewal-demo__merchant b,
+.renewal-demo__merchant small,
+.renewal-demo__amount b,
+.renewal-demo__amount small {
+  display: block;
+}
+.renewal-demo__merchant b {
+  font-size: 14px;
+}
+.renewal-demo__merchant small,
+.renewal-demo__amount small {
+  color: var(--faint);
+  font-size: 11.5px;
+}
+.renewal-demo__amount {
+  text-align: right;
+  flex: none;
+}
+.renewal-demo__amount b {
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+.renewal-demo__card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 14px;
+  padding: 16px 18px;
+  border-radius: 15px;
+  background: var(--grad-card);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(12, 74, 56, 0.2);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.renewal-demo__card::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -70px;
+  top: -85px;
+  border: 22px solid rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.renewal-demo__card-top,
+.renewal-demo__card-bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.renewal-demo__card-brand {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+.renewal-demo__card-status {
+  padding: 3px 8px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.renewal-demo__card-number {
+  position: relative;
+  z-index: 1;
+  margin: 16px 0;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  white-space: nowrap;
+}
+.renewal-demo__card-bottom small,
+.renewal-demo__card-bottom b {
+  display: block;
+}
+.renewal-demo__card-bottom small {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.renewal-demo__card-bottom b {
+  margin-top: 2px;
+  font-size: 11px;
+}
+.renewal-demo__card-bottom span:last-child {
+  text-align: right;
+}
+#demo-card-limit {
+  font-family: var(--font-mono);
+}
+#modal-renewal-demo[data-state="protected"] .renewal-demo__card,
+#modal-renewal-demo[data-state="blocked"] .renewal-demo__card {
+  background: linear-gradient(135deg, #092e24, #0c4a38);
+  box-shadow: inset 0 0 0 2px rgba(142, 213, 164, 0.55), 0 12px 28px rgba(12, 74, 56, 0.18);
+}
+#modal-renewal-demo[data-state="protected"] .renewal-demo__card-status,
+#modal-renewal-demo[data-state="blocked"] .renewal-demo__card-status {
+  background: #8ed5a4;
+  color: #0c3528;
+}
+.renewal-demo__clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 23px 0 16px;
+}
+.renewal-demo__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 11px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(217, 138, 20, 0.12);
+  color: var(--amber);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.renewal-demo__status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: live-ping 1.5s var(--ease) infinite;
+}
+#modal-renewal-demo[data-state="protected"] .renewal-demo__status,
+#modal-renewal-demo[data-state="blocked"] .renewal-demo__status {
+  background: rgba(21, 160, 106, 0.12);
+  color: var(--mint-ink);
+}
+#modal-renewal-demo[data-state="charged"] .renewal-demo__status {
+  background: rgba(214, 69, 96, 0.12);
+  color: var(--rose);
+}
+.renewal-demo__clock > small {
+  color: var(--faint);
+  font-size: 12px;
+}
+#demo-countdown {
+  margin-top: 2px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+#modal-renewal-demo[data-state="blocked"] #demo-countdown {
+  color: var(--mint-ink);
+}
+#modal-renewal-demo[data-state="charged"] #demo-countdown {
+  color: var(--rose);
+}
+.renewal-demo__progress {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 100px;
+  background: rgba(14, 108, 80, 0.09);
+}
+.renewal-demo__progress i {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--amber);
+  transition: width 0.25s linear, background 0.25s;
+}
+#modal-renewal-demo[data-state="protected"] .renewal-demo__progress i,
+#modal-renewal-demo[data-state="blocked"] .renewal-demo__progress i {
+  background: var(--mint);
+}
+#modal-renewal-demo[data-state="charged"] .renewal-demo__progress i {
+  background: var(--rose);
+}
+.renewal-demo__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  margin: 20px 0;
+  list-style: none;
+}
+.renewal-demo__steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  min-width: 0;
+  padding: 12px 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  transition: border-color 0.25s, background 0.25s;
+}
+.renewal-demo__step-icon {
+  width: 23px;
+  height: 23px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 50%;
+  background: rgba(14, 108, 80, 0.08);
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+.renewal-demo__steps b,
+.renewal-demo__steps small {
+  display: block;
+}
+.renewal-demo__steps b {
+  font-size: 11.5px;
+  line-height: 1.35;
+}
+.renewal-demo__steps small {
+  margin-top: 3px;
+  color: var(--faint);
+  font-size: 10px;
+  line-height: 1.4;
+}
+.renewal-demo__steps li.done {
+  border-color: rgba(21, 160, 106, 0.28);
+  background: rgba(21, 160, 106, 0.06);
+}
+.renewal-demo__steps li.done .renewal-demo__step-icon {
+  background: var(--mint);
+  color: #fff;
+}
+.renewal-demo__steps li.failed {
+  border-color: rgba(214, 69, 96, 0.28);
+  background: rgba(214, 69, 96, 0.06);
+}
+.renewal-demo__steps li.failed .renewal-demo__step-icon {
+  background: var(--rose);
+  color: #fff;
+}
+.renewal-demo__result {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 0 0 18px;
+  padding: 15px;
+  border: 1px solid rgba(21, 160, 106, 0.32);
+  border-radius: 13px;
+  background: rgba(21, 160, 106, 0.09);
+  animation: pop 0.4s var(--ease);
+}
+.renewal-demo__result-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 50%;
+  background: var(--mint);
+  color: #fff;
+}
+.renewal-demo__result-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.renewal-demo__result b,
+.renewal-demo__result small {
+  display: block;
+}
+.renewal-demo__result b {
+  color: var(--mint-ink);
+  font-size: 16px;
+}
+.renewal-demo__result small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+#modal-renewal-demo[data-state="charged"] .renewal-demo__result {
+  border-color: rgba(214, 69, 96, 0.32);
+  background: rgba(214, 69, 96, 0.08);
+}
+#modal-renewal-demo[data-state="charged"] .renewal-demo__result-icon {
+  background: var(--rose);
+}
+#modal-renewal-demo[data-state="charged"] .renewal-demo__result b {
+  color: var(--rose);
+}
+.renewal-demo__actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.renewal-demo__actions .btn {
+  min-height: 46px;
+  padding: 11px 18px;
+  font-size: 13.5px;
+}
+#demo-replay {
+  width: 100%;
+}
+.renewal-demo__note {
+  margin-top: 13px;
+  color: var(--faint);
+  font-size: 10.8px;
+  text-align: center;
 }
 
 /* ---------- Responsive ---------- */
@@ -1290,6 +1662,39 @@ body {
   }
   .gc-grid {
     grid-template-columns: 1fr;
+  }
+  .demo-banner {
+    flex-wrap: wrap;
+  }
+  .demo-banner__actions {
+    width: 100%;
+    margin-left: 29px;
+    gap: 13px;
+  }
+  .renewal-demo {
+    padding: 24px;
+  }
+  .renewal-demo__steps {
+    grid-template-columns: 1fr;
+  }
+  .renewal-demo__steps li {
+    align-items: center;
+  }
+  .renewal-demo__actions {
+    flex-direction: column;
+  }
+  .renewal-demo__actions .btn {
+    width: 100%;
+  }
+  #demo-countdown {
+    font-size: 46px;
+  }
+  .renewal-demo__card {
+    padding: 14px;
+  }
+  .renewal-demo__card-number {
+    font-size: 13px;
+    letter-spacing: 0.03em;
   }
 }
 
