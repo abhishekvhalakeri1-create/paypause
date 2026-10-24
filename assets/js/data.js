@@ -14,9 +14,9 @@
     p + "_" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
 
   const money = (n, cents = true) =>
-    n.toLocaleString("en-US", {
+    n.toLocaleString("en-IN", {
       style: "currency",
-      currency: "USD",
+      currency: "INR",
       minimumFractionDigits: cents ? 2 : 0,
       maximumFractionDigits: cents ? 2 : 0,
     });
@@ -128,7 +128,7 @@
         id: uid("sub"),
         merchant: "Netflix",
         plan: "Standard with ads",
-        amount: 15.49,
+        amount: 149,
         renewal: addDays(now, 3).toISOString(),
         category: "Streaming",
         status: "active",
@@ -141,7 +141,7 @@
         id: uid("sub"),
         merchant: "Spotify",
         plan: "Premium Individual",
-        amount: 11.99,
+        amount: 119,
         renewal: addDays(now, 9).toISOString(),
         category: "Music",
         status: "active",
@@ -154,7 +154,7 @@
         id: uid("sub"),
         merchant: "ChatGPT Plus",
         plan: "Monthly subscription",
-        amount: 20.0,
+        amount: 1999,
         renewal: addDays(now, 1).toISOString(),
         category: "AI",
         status: "active",
@@ -167,7 +167,7 @@
         id: uid("sub"),
         merchant: "Adobe Creative Cloud",
         plan: "All Apps — 20+ apps",
-        amount: 59.99,
+        amount: 4230,
         renewal: addDays(now, 16).toISOString(),
         category: "Design",
         status: "active",
@@ -180,7 +180,7 @@
         id: uid("sub"),
         merchant: "Equinox+",
         plan: "Fitness membership",
-        amount: 29.99,
+        amount: 2499,
         renewal: addDays(now, 5).toISOString(),
         category: "Fitness",
         status: "active",
@@ -193,7 +193,7 @@
         id: uid("sub"),
         merchant: "iCloud+",
         plan: "50 GB storage",
-        amount: 2.99,
+        amount: 75,
         renewal: addDays(now, 21).toISOString(),
         category: "Cloud",
         status: "active",
@@ -206,7 +206,7 @@
         id: uid("sub"),
         merchant: "Amazon Prime",
         plan: "Prime monthly",
-        amount: 14.99,
+        amount: 179,
         renewal: addDays(now, 12).toISOString(),
         category: "Shopping",
         status: "active",
@@ -219,7 +219,7 @@
         id: uid("sub"),
         merchant: "YouTube Premium",
         plan: "Individual plan",
-        amount: 13.99,
+        amount: 149,
         renewal: addDays(now, 8).toISOString(),
         category: "Streaming",
         status: "active",
@@ -232,7 +232,7 @@
         id: uid("sub"),
         merchant: "Canva Pro",
         plan: "Pro — yearly paid monthly",
-        amount: 14.99,
+        amount: 400,
         renewal: addDays(now, 19).toISOString(),
         category: "Design",
         status: "active",
@@ -248,7 +248,7 @@
         id: uid("tr"),
         merchant: "Notion AI",
         plan: "Plus plan trial",
-        chargeAfter: 10.0,
+        chargeAfter: 899,
         startedAt: now - 5 * DAY,
         endsAt: now + 38 * HOUR,
         totalDays: 7,
@@ -259,7 +259,7 @@
         id: uid("tr"),
         merchant: "Figma Professional",
         plan: "Professional trial",
-        chargeAfter: 15.0,
+        chargeAfter: 1250,
         startedAt: now - 12 * DAY,
         endsAt: now + 2 * DAY + 6 * HOUR,
         totalDays: 14,
@@ -270,7 +270,7 @@
         id: uid("tr"),
         merchant: "Cursor Pro",
         plan: "Pro plan trial",
-        chargeAfter: 20.0,
+        chargeAfter: 1999,
         startedAt: now - 3 * DAY,
         endsAt: now + 10 * DAY + 9 * HOUR,
         totalDays: 14,
@@ -282,7 +282,7 @@
     const cards = [
       makePauseCard({
         merchant: "Notion AI",
-        cap: 1.0,
+        cap: 83,
         autoLockAt: now + 38 * HOUR,
       }),
       makePauseCard({
@@ -300,7 +300,7 @@
         cap: 0.0,
         autoLockAt: now - 2 * DAY,
         status: "destroyed",
-        blockedAmount: 59.99,
+        blockedAmount: 4230,
         oneTime: true,
       }),
     ];
@@ -317,7 +317,7 @@
         kind: "block",
         title: "Charge blocked · Adobe Creative Cloud",
         sub: "Pause Card self-destructed at trial end",
-        amount: "$59.99",
+        amount: "₹4,230",
         when: "2 days ago",
       },
       {
@@ -325,14 +325,14 @@
         kind: "ok",
         title: "Subscription canceled · Blue Apron",
         sub: "Kill the Bill — confirmed by merchant",
-        amount: "-$11.99/mo",
+        amount: "-₹119/mo",
         when: "4 days ago",
       },
       {
         id: uid("ac"),
         kind: "card",
         title: "Pause Card created · Notion AI",
-        sub: "Hard cap $1.00 · auto-lock armed",
+        sub: "Hard cap ₹83.00 · auto-lock armed",
         amount: "",
         when: "Yesterday",
       },
@@ -341,7 +341,7 @@
         kind: "warn",
         title: "Renewal reminder · ChatGPT Plus",
         sub: "Renews tomorrow — no Pause Card attached",
-        amount: "$20.00",
+        amount: "₹1,999",
         when: "Today",
       },
       {
@@ -354,13 +354,13 @@
       },
     ];
 
-    const spendSeries = [214, 198, 232, 205, 226, 184.42];
+    const spendSeries = [12480, 11890, 12990, 11250, 10890, 9799];
 
     return {
       version: 1,
       savedAt: now.toISOString(),
       user: { name: "Jordan Avery", plan: "Plus", initials: "JA" },
-      savedThisYear: 1284.0,
+      savedThisYear: 107200,
       subs,
       trials,
       cards,

@@ -88,11 +88,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const topIdBefore = feed.querySelector(".live-row").dataset.liveId;
   const savedBefore = window.PP.live.state.saved;
   const savedCounter = window.document.querySelector("[data-live-counter='saved']").textContent;
-  if (!/^\$[\d,]+/.test(savedCounter)) throw new Error("live savings counter not rendering");
+  if (!/^₹[\d,]+/.test(savedCounter)) throw new Error("live savings counter not in INR: " + savedCounter);
+
+  // every network saving must stay under ₹500
+  if (!window.PP.live.state.feed.every((ev) => ev.amount < 500))
+    throw new Error("live feed contains a saving of ₹500 or more");
+  if (!tickerItems[0].textContent.includes("₹"))
+    throw new Error("ticker not showing rupee amounts");
   await sleep(5600);
   const topIdAfter = feed.querySelector(".live-row").dataset.liveId;
   if (topIdAfter === topIdBefore) throw new Error("live feed did not add an event");
   if (window.PP.live.state.saved <= savedBefore) throw new Error("live savings total did not rise");
+  if (!window.PP.live.state.feed.every((ev) => ev.amount < 500))
+    throw new Error("newly generated live event crossed ₹500");
   const proof = window.document.getElementById("proof-wrap");
   if (proof.children.length < 1) throw new Error("social-proof popup never appeared");
   console.log("✓ landing page: hero, countdown, FAQ, generator, rebrand, live feed");
@@ -108,11 +116,16 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const $ = (s) => doc.querySelector(s);
   const $$ = (s) => [...doc.querySelectorAll(s)];
 
-  if (!$("#stat-spend").innerHTML.includes("$184.42"))
+  if (!$("#stat-spend").innerHTML.includes("₹9,799"))
     throw new Error("monthly spend stat wrong: " + $("#stat-spend").textContent);
   if (!/PayPause/.test(doc.documentElement.outerHTML)) throw new Error("dashboard missing PayPause brand");
   if (!doc.querySelector("[data-live-feed] .live-row"))
     throw new Error("dashboard live network panel not rendering");
+  if (!$("#donut-total").textContent.includes("₹")) throw new Error("donut total not in rupees");
+  if (doc.documentElement.outerHTML.includes("$184") || doc.documentElement.outerHTML.includes("USD"))
+    throw new Error("dollar currency still present on dashboard");
+  if (!window.PP.live.state.feed.every((ev) => ev.amount < 500))
+    throw new Error("dashboard live feed has saving ≥ ₹500");
   if ($$(".sub-row").length !== 9) throw new Error("expected 9 subscription rows, got " + $$(".sub-row").length);
   if ($$(".trial-card").length !== 3) throw new Error("expected 3 trial cards");
   if ($$(".gc-tile").length !== 4) throw new Error("expected 4 pause cards");
@@ -165,7 +178,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const cancelBtn = $("[data-cancel]");
   cancelBtn.click();
   if (!$("#modal-cancel").classList.contains("open")) throw new Error("cancel wizard did not open");
-  if (!$("#wz-yearly").textContent.includes("$")) throw new Error("wizard summary empty");
+  if (!$("#wz-yearly").textContent.includes("₹")) throw new Error("wizard summary empty");
   $("#wz-next").click();
   // work pane runs ~4*650ms + buffer
   await sleep(3600);
@@ -285,6 +298,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const searched = $$(".c-post");
   if (!searched.length || searched.some((p) => !/adobe/i.test(p.textContent)))
     throw new Error("search did not filter correctly");
+
+  // all currency mentions in visible UI must be rupees (exclude <script> source text)
+  const visibleSel = ["#c-feed", "#c-rail", "#c-about", "#c-trending", "#ticker-track", ".c-nav", ".c-composer", "#modal-post"];
+  const visibleText = visibleSel.map((s) => doc.querySelector(s)?.textContent || "").join(" ");
+  if (/\$[0-9]/.test(visibleText)) throw new Error("dollar amounts remain in community UI");
+  if (!visibleText.includes("₹")) throw new Error("community UI missing rupee amounts");
 
   console.log("✓ community: feed, voting, sorting, scopes, comments, posting, search, save");
 }

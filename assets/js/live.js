@@ -24,22 +24,23 @@
     "Mumbai, MH", "Berlin, DE", "Sydney, AU", "Seattle, WA", "Denver, CO",
     "Miami, FL", "Dublin, IE", "San Diego, CA", "Portland, OR", "Atlanta, GA",
   ];
+  // Every network saving stays under ₹500 — small, relatable, real-world amounts
   const MERCHANTS = [
-    { name: "Adobe Creative Cloud", amounts: [59.99, 54.99], short: "Adobe CC" },
-    { name: "ChatGPT Plus", amounts: [20.0], short: "ChatGPT Plus" },
-    { name: "Notion AI", amounts: [10.0, 8.0], short: "Notion AI" },
-    { name: "Equinox+", amounts: [29.99], short: "Equinox+" },
-    { name: "Figma Professional", amounts: [15.0, 12.0], short: "Figma" },
-    { name: "YouTube Premium", amounts: [13.99], short: "YouTube Premium" },
-    { name: "Canva Pro", amounts: [14.99], short: "Canva Pro" },
-    { name: "Spotify", amounts: [11.99, 9.99], short: "Spotify" },
-    { name: "Headspace", amounts: [12.99], short: "Headspace" },
-    { name: "Duolingo Max", amounts: [30.0], short: "Duolingo Max" },
-    { name: "Blue Apron", amounts: [11.99], short: "Blue Apron" },
-    { name: "NordVPN", amounts: [12.99], short: "NordVPN" },
-    { name: "GitHub Copilot", amounts: [19.0, 10.0], short: "GitHub Copilot" },
-    { name: "Peloton App", amounts: [12.99], short: "Peloton" },
-    { name: "iCloud+", amounts: [9.99, 2.99], short: "iCloud+" },
+    { name: "Adobe Creative Cloud", amounts: [449, 399], short: "Adobe CC" },
+    { name: "ChatGPT Plus", amounts: [199], short: "ChatGPT Plus" },
+    { name: "Notion AI", amounts: [99, 89], short: "Notion AI" },
+    { name: "Equinox+", amounts: [249], short: "Equinox+" },
+    { name: "Figma Professional", amounts: [149, 129], short: "Figma" },
+    { name: "YouTube Premium", amounts: [149], short: "YouTube Premium" },
+    { name: "Canva Pro", amounts: [149], short: "Canva Pro" },
+    { name: "Spotify", amounts: [119, 99], short: "Spotify" },
+    { name: "Headspace", amounts: [129], short: "Headspace" },
+    { name: "Duolingo Max", amounts: [299], short: "Duolingo Max" },
+    { name: "Blue Apron", amounts: [119], short: "Blue Apron" },
+    { name: "NordVPN", amounts: [129], short: "NordVPN" },
+    { name: "GitHub Copilot", amounts: [199, 99], short: "GitHub Copilot" },
+    { name: "Peloton App", amounts: [129], short: "Peloton" },
+    { name: "iCloud+", amounts: [75, 49], short: "iCloud+" },
   ];
   const ACTIONS = [
     { kind: "block", weight: 5, verb: (m) => `blocked a charge from ${m}` },
@@ -49,13 +50,13 @@
 
   const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
   const money = (n) =>
-    n.toLocaleString("en-US", {
+    n.toLocaleString("en-IN", {
       style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
+      currency: "INR",
+      maximumFractionDigits: 0,
     });
   const compact = (n) =>
-    n >= 1000 ? n.toLocaleString("en-US") : String(n);
+    n >= 1000 ? n.toLocaleString("en-IN") : String(n);
 
   function relTime(ts) {
     const diff = Date.now() - ts;
@@ -74,7 +75,8 @@
 
   function makeEvent(ts) {
     const merchant = pick(MERCHANTS);
-    const amount = pick(merchant.amounts);
+    // hard guarantee: a single network save never crosses ₹500
+    const amount = Math.min(pick(merchant.amounts), 499);
     const totalWeight = ACTIONS.reduce((s, a) => s + a.weight, 0);
     let roll = Math.random() * totalWeight;
     let action = ACTIONS[0];
@@ -103,7 +105,7 @@
 
   /* ---------- live state ---------- */
   const state = {
-    saved: 214930.18,
+    saved: 1842930,
     blocks: 14208,
     members: 31402,
     feed: [],

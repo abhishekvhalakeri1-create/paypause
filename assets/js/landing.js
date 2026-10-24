@@ -46,7 +46,12 @@
     const tick = (now) => {
       const p = Math.min((now - start) / dur, 1);
       const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+      const raw = target * eased;
+      const num =
+        decimals === 0
+          ? Math.round(raw).toLocaleString("en-IN")
+          : raw.toFixed(decimals);
+      el.textContent = prefix + num + suffix;
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -121,7 +126,7 @@
       els.holder.textContent = "PAUSE USER";
       els.exp.textContent = utils.generateExpiry();
       els.cvc.textContent = utils.generateCVC();
-      els.cap.textContent = "$0.00";
+      els.cap.textContent = utils.money(0);
       els.lock.textContent = utils.fmtDate(lockDate);
 
       placeholder.style.display = "none";

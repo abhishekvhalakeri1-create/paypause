@@ -5,8 +5,12 @@
 PayPause is a hackathon concept product that gives consumers financial self-defense against
 dark-pattern subscriptions: renewal-date hiding, buried cancellation flows, and "zombie"
 recurring charges. It combines a subscription/trial tracker with **single-use virtual Pause
-Cards** that lock to `$0.00` the moment a free trial ends — **without ever asking for a bank
+Cards** that lock to `₹0.00` the moment a free trial ends — **without ever asking for a bank
 login or card number**.
+
+All money is displayed in **Indian Rupees (₹)** with `en-IN` digit grouping (e.g. ₹1,07,200),
+using realistic Indian subscription price points. The live network feed only ever shows small,
+relatable savings — every individual event is capped below ₹500.
 
 ## What's inside
 

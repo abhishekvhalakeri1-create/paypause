@@ -795,7 +795,7 @@
       renderAll();
       return ui.toast(
         "Trial killed",
-        `${tr.merchant} can't charge you — the Pause Card is at $0.`,
+        `${tr.merchant} can't charge you — the Pause Card is at ₹0.`,
         "ok",
         5000
       );
