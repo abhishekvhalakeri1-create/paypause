@@ -102,7 +102,7 @@ Blueprint is included, so the configuration is automatic.
 ### Option B — manual static site
 
 1. In the Render dashboard choose **New + → Static Site**
-2. Connect the **paypause** repository, branch `arena/a59ab55a-paypause`
+2. Connect the **paypause** repository, branch `arena/fc1ba5e1-paypause`
 3. Set **Build Command** to empty (leave blank) and **Publish Directory** to `.`
 4. Under **Redirects/Rewrites** add rewrites so clean URLs work:
    `/dashboard → /dashboard.html` and `/community → /community.html`
