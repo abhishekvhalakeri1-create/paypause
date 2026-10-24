@@ -59,11 +59,11 @@ body {
 }
 .side-nav a:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(14, 108, 80, 0.06);
 }
 .side-nav a.active {
   color: var(--text);
-  background: rgba(132, 115, 255, 0.14);
+  background: rgba(14, 108, 80, 0.14);
 }
 .side-nav a.active::before {
   content: "";
@@ -80,12 +80,12 @@ body {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(14, 108, 80, 0.09);
   padding: 2px 8px;
   border-radius: 100px;
 }
 .side-nav a .count--alert {
-  background: rgba(255, 181, 71, 0.16);
+  background: rgba(217, 138, 20, 0.16);
   color: var(--amber);
 }
 .sidebar__user {
@@ -269,15 +269,15 @@ body {
   font-family: var(--font-mono);
 }
 .delta--down {
-  background: rgba(67, 224, 162, 0.12);
+  background: rgba(21, 160, 106, 0.12);
   color: var(--mint);
 }
 .delta--up {
-  background: rgba(255, 93, 125, 0.12);
+  background: rgba(214, 69, 96, 0.12);
   color: var(--rose);
 }
 .delta--flat {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(14, 108, 80, 0.08);
   color: var(--muted);
 }
 .stat-tile__label {
@@ -431,7 +431,7 @@ body {
   width: 100%;
   max-width: 34px;
   border-radius: 7px 7px 4px 4px;
-  background: linear-gradient(180deg, rgba(132, 115, 255, 0.85), rgba(91, 84, 230, 0.45));
+  background: linear-gradient(180deg, rgba(14, 108, 80, 0.85), rgba(11, 92, 68, 0.45));
   position: relative;
   transition: filter 0.2s;
   min-height: 4px;
@@ -440,7 +440,7 @@ body {
   filter: brightness(1.25);
 }
 .bar--now {
-  background: linear-gradient(180deg, var(--cyan), rgba(62, 226, 212, 0.4));
+  background: linear-gradient(180deg, var(--cyan), rgba(13, 148, 136, 0.4));
 }
 .bar-col small {
   font-size: 11px;
@@ -462,7 +462,7 @@ body {
   transition: background 0.2s;
 }
 .feed__item:hover {
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(14, 108, 80, 0.05);
 }
 .feed__ico {
   width: 36px;
@@ -504,10 +504,10 @@ body {
   font-size: 11px;
   color: var(--faint);
 }
-.feed__ico--ok { background: rgba(67, 224, 162, 0.18); color: var(--mint); }
-.feed__ico--block { background: rgba(255, 93, 125, 0.16); color: var(--rose); }
-.feed__ico--card { background: rgba(132, 115, 255, 0.18); color: var(--violet-bright); }
-.feed__ico--warn { background: rgba(255, 181, 71, 0.16); color: var(--amber); }
+.feed__ico--ok { background: rgba(21, 160, 106, 0.18); color: var(--mint); }
+.feed__ico--block { background: rgba(214, 69, 96, 0.16); color: var(--rose); }
+.feed__ico--card { background: rgba(14, 108, 80, 0.18); color: var(--violet-bright); }
+.feed__ico--warn { background: rgba(217, 138, 20, 0.16); color: var(--amber); }
 
 /* compact live timer inside overview feed */
 .ov-timer {
@@ -539,11 +539,11 @@ body {
 }
 .chip:hover {
   color: var(--text);
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: rgba(14, 108, 80, 0.28);
 }
 .chip.active {
-  background: rgba(132, 115, 255, 0.16);
-  border-color: rgba(132, 115, 255, 0.55);
+  background: rgba(14, 108, 80, 0.16);
+  border-color: rgba(14, 108, 80, 0.55);
   color: var(--violet-bright);
 }
 .toolbar .searchbox {
@@ -667,12 +667,12 @@ body {
   width: 11px;
   height: 11px;
 }
-.badge--safe { background: rgba(67, 224, 162, 0.13); color: var(--mint); }
-.badge--risk { background: rgba(255, 181, 71, 0.14); color: var(--amber); }
-.badge--danger { background: rgba(255, 93, 125, 0.14); color: var(--rose); }
-.badge--violet { background: rgba(132, 115, 255, 0.16); color: var(--violet-bright); }
-.badge--neutral { background: rgba(255, 255, 255, 0.07); color: var(--muted); }
-.badge--dead { background: rgba(255, 93, 125, 0.12); color: var(--rose); }
+.badge--safe { background: rgba(21, 160, 106, 0.13); color: var(--mint); }
+.badge--risk { background: rgba(217, 138, 20, 0.14); color: var(--amber); }
+.badge--danger { background: rgba(214, 69, 96, 0.14); color: var(--rose); }
+.badge--violet { background: rgba(14, 108, 80, 0.16); color: var(--violet-bright); }
+.badge--neutral { background: rgba(14, 108, 80, 0.08); color: var(--muted); }
+.badge--dead { background: rgba(214, 69, 96, 0.12); color: var(--rose); }
 
 /* ---------- Trial cards ---------- */
 .trial-grid {
@@ -691,9 +691,9 @@ body {
   animation: view-in 0.35s var(--ease) both;
 }
 .trial-card.urgent {
-  border-color: rgba(255, 181, 71, 0.4);
+  border-color: rgba(217, 138, 20, 0.4);
   background:
-    radial-gradient(ellipse 90% 60% at 100% 0%, rgba(255, 181, 71, 0.08), transparent 70%),
+    radial-gradient(ellipse 90% 60% at 100% 0%, rgba(217, 138, 20, 0.08), transparent 70%),
     var(--surface);
 }
 .trial-card__head {
@@ -732,7 +732,7 @@ body {
 .trial-progress {
   height: 6px;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(14, 108, 80, 0.08);
   overflow: hidden;
 }
 .trial-progress i {
@@ -796,7 +796,7 @@ body {
   position: relative;
   overflow: hidden;
   background: var(--grad-card);
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(14, 108, 80, 0.15);
   box-shadow: var(--shadow-md);
   transition: transform 0.3s var(--ease), opacity 0.3s, filter 0.3s;
 }
@@ -874,7 +874,7 @@ body {
 .gc-new {
   aspect-ratio: 1.586;
   border-radius: 18px;
-  border: 1.5px dashed rgba(255, 255, 255, 0.18);
+  border: 1.5px dashed rgba(14, 108, 80, 0.2);
   display: grid;
   place-items: center;
   text-align: center;
@@ -886,7 +886,7 @@ body {
 .gc-new:hover {
   border-color: var(--violet);
   color: var(--violet-bright);
-  background: rgba(132, 115, 255, 0.06);
+  background: rgba(14, 108, 80, 0.06);
   transform: translateY(-3px);
 }
 .gc-new svg {
@@ -939,7 +939,7 @@ body {
   flex: 1;
   height: 4px;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(14, 108, 80, 0.11);
   transition: background 0.3s;
 }
 .wizard-steps i.done {
@@ -975,8 +975,8 @@ body {
   gap: 13px;
   padding: 16px 18px;
   border-radius: 13px;
-  background: rgba(67, 224, 162, 0.09);
-  border: 1px solid rgba(67, 224, 162, 0.28);
+  background: rgba(21, 160, 106, 0.09);
+  border: 1px solid rgba(21, 160, 106, 0.28);
   margin-bottom: 18px;
 }
 .savings-highlight .feed__ico {
@@ -1051,7 +1051,7 @@ body {
   transition: all 0.3s;
 }
 .progress-steps li.done .tick {
-  background: rgba(67, 224, 162, 0.16);
+  background: rgba(21, 160, 106, 0.16);
   border-color: var(--mint);
   color: var(--mint);
 }
@@ -1072,8 +1072,8 @@ body {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: rgba(67, 224, 162, 0.13);
-  border: 1px solid rgba(67, 224, 162, 0.4);
+  background: rgba(21, 160, 106, 0.13);
+  border: 1px solid rgba(21, 160, 106, 0.4);
   display: grid;
   place-items: center;
   margin: 0 auto 20px;
@@ -1143,7 +1143,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 100px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(14, 108, 80, 0.13);
   transition: background 0.25s;
   cursor: pointer;
 }
@@ -1171,8 +1171,8 @@ body {
   font-size: 12.3px;
   color: var(--faint);
   padding: 13px 15px;
-  background: rgba(62, 226, 212, 0.06);
-  border: 1px solid rgba(62, 226, 212, 0.2);
+  background: rgba(13, 148, 136, 0.06);
+  border: 1px solid rgba(13, 148, 136, 0.2);
   border-radius: 12px;
 }
 .security-note svg {
@@ -1191,8 +1191,8 @@ body {
   padding: 12px 18px;
   margin-bottom: 22px;
   border-radius: 13px;
-  background: rgba(132, 115, 255, 0.08);
-  border: 1px solid rgba(132, 115, 255, 0.25);
+  background: rgba(14, 108, 80, 0.08);
+  border: 1px solid rgba(14, 108, 80, 0.25);
   font-size: 13px;
   color: var(--muted);
 }
@@ -1218,7 +1218,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(4, 4, 9, 0.6);
+  background: rgba(8, 40, 32, 0.4);
   z-index: 85;
 }
 @media (max-width: 1100px) {
@@ -1291,4 +1291,9 @@ body {
   .gc-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* logo image sizing inside the app shell */
+.sidebar__brand .brand__logo {
+  height: 34px;
 }

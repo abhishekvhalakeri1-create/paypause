@@ -109,14 +109,14 @@
 
   /* ---------- Category palette ---------- */
   const CATEGORY_COLORS = {
-    Streaming: "#8473ff",
-    Music: "#1db954",
-    AI: "#3ee2d4",
-    Design: "#ff5d7d",
-    Fitness: "#ffb547",
-    Cloud: "#3697f5",
-    Shopping: "#ff9900",
-    Productivity: "#b18cff",
+    Streaming: "#0e6c50",
+    Music: "#1aa377",
+    AI: "#0d9488",
+    Design: "#d64560",
+    Fitness: "#c98a14",
+    Cloud: "#2f7ed8",
+    Shopping: "#e07b39",
+    Productivity: "#7c5cdb",
   };
 
   /* ---------- Seed data ---------- */

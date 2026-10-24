@@ -8,9 +8,7 @@
       name="description"
       content="PayPause is a privacy-first subscription shield. Track trials, mint single-use Pause Cards that lock to ₹0, and kill zombie subscriptions — without ever sharing a bank login."
     />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238473ff'%3E%3Crect x='6.2' y='4' width='4.2' height='16' rx='1.6'/%3E%3Crect x='13.6' y='4' width='4.2' height='16' rx='1.6'/%3E%3C/svg%3E"
+    <link rel="icon" type="image/png" href="assets/img/paypause-mark-sm.png"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="assets/css/live.css" />
@@ -19,14 +17,7 @@
     <!-- ============ NAV ============ -->
     <header class="nav">
       <div class="container nav__inner">
-        <a href="index.html" class="brand">
-          <span class="brand__mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="6.2" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/><rect x="13.6" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/>
-            </svg>
-          </span>
-          PayPause
-        </a>
+        <a href="index.html" class="brand"><img class="brand__logo" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" /> PayPause</a>
         <nav class="nav__links">
           <a href="#solution">Product</a>
           <a href="#live">Live savings</a>
@@ -59,10 +50,10 @@
     <main>
       <!-- ============ HERO ============ -->
       <section class="hero">
-        <div class="hero__glow"></div>
-        <div class="hero__grid"></div>
+        <div class="hero__bg" aria-hidden="true"></div>
         <div class="container hero__inner">
-          <div>
+          <div class="hero__content">
+            <img class="hero__logo" src="assets/img/paypause-logo-full.png" alt="PayPause — Pause the payments. Take control." width="460" height="383" />
             <span class="hero__badge"><span class="dot"></span> Privacy-first · Zero bank logins · No aggregators</span>
             <h1>Free trials shouldn't turn into <span class="grad-text">₹499 surprises.</span></h1>
             <p class="hero__sub">
@@ -94,53 +85,43 @@
                 Works with any merchant
               </span>
             </div>
+            <img class="hero__people-mobile" src="assets/img/hero-people.jpg" alt="A group of people checking their PayPause shields on their phones" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="hero__floats" aria-hidden="true">
+          <!-- blocked charge in rupees -->
+          <div class="hero-float hero-float--blocked">
+            <span class="hf-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+            </span>
+            <span>
+              <b>Charge blocked</b>
+              <small>ChatGPT Plus · card declined at lock</small>
+            </span>
+            <span class="hf-amount">₹1,999</span>
           </div>
 
-          <div class="hero-visual" aria-hidden="true">
-            <!-- main pause card -->
-            <div class="float-card hero-card">
-              <div class="hero-card__top">
-                <span class="hero-card__chip"></span>
-                <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--cyan);font-weight:600">PAUSE CARD</span>
-              </div>
-              <div class="hero-card__num" id="hero-card-num">5398 8412 7740 2293</div>
-              <div class="hero-card__bottom">
-                <div><span>Locked to</span><b>Notion AI</b></div>
-                <div><span>Expires</span><b>09/28</b></div>
-                <div><span>CVC</span><b>477</b></div>
-              </div>
-              <div class="hero-card__lock">
-                <span class="tag">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  Locks to ₹0.00 after trial
-                </span>
-              </div>
-            </div>
-
-            <!-- live countdown -->
-            <div class="float-card float-countdown">
-              <div class="float-countdown__label">Free trial · Notion AI</div>
-              <div class="float-countdown__title">Auto-lock armed</div>
-              <div class="float-countdown__time" id="hero-timer">1d 14h 22m</div>
-              <div class="float-countdown__bar"><i></i></div>
-            </div>
-
-            <!-- blocked charge toast -->
-            <div class="float-card float-toast">
-              <span class="float-toast__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-              </span>
-              <span>
-                <b>Charge blocked · ₹1,999</b>
-                <small>ChatGPT Plus · card declined at lock</small>
+          <!-- pause card lock -->
+          <div class="hero-float hero-float--lock">
+            <div class="hf-head">
+              <span>PAUSE CARD</span>
+              <span class="hf-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Locks to ₹0.00
               </span>
             </div>
-
-            <!-- saved stat -->
-            <div class="float-card float-saved">
-              <small>Saved this year</small>
-              <b>₹1,07,200</b>
+            <div class="hf-num" id="hero-card-num">5398 8412 7740 2293</div>
+            <div class="hf-row">
+              <span>Locked to <b>Notion AI</b></span>
+              <span>Auto-lock <b id="hero-timer">1d 14h 22m</b></span>
             </div>
+          </div>
+
+          <!-- saved -->
+          <div class="hero-float hero-float--saved">
+            <small>Saved this year</small>
+            <b>₹1,07,200</b>
           </div>
         </div>
       </section>
@@ -350,10 +331,7 @@
                   <span class="gc-shine"></span>
                   <div class="gc-top">
                     <span class="gc-brand">
-                      <span class="brand__mark">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.2" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/><rect x="13.6" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/></svg>
-                      </span>
-                      PAUSE
+                      <img class="brand__logo brand__logo--sm" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" /> PAUSE
                     </span>
                     <span class="gc-chip"></span>
                   </div>
@@ -369,11 +347,11 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     Hard cap <b data-gc="cap">₹0.00</b> · all later charges decline
                   </div>
-                  <div class="gc-lockline" style="background:rgba(132,115,255,.1);border-color:rgba(132,115,255,.3);color:var(--violet-bright)">
+                  <div class="gc-lockline" style="background:rgba(142,213,164,.12);border-color:rgba(142,213,164,.35);color:#8ed5a4">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
                     Auto-locks on <b data-gc="lock">—</b>
                   </div>
-                  <div class="gc-lockline" style="background:rgba(255,255,255,.04);border-color:var(--border);color:var(--muted)">
+                  <div class="gc-lockline" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.78)">
                     CVC <b data-gc="cvc" style="font-family:var(--font-mono)">000</b> · single merchant only
                   </div>
                 </div>
@@ -649,10 +627,7 @@
         <div class="footer__grid">
           <div class="footer__about">
             <a href="index.html" class="brand">
-              <span class="brand__mark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.2" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/><rect x="13.6" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/></svg>
-              </span>
-              PayPause
+              <img class="footer-logo" src="assets/img/paypause-logo-full.png" alt="PayPause — Pause the payments. Take control." />
             </a>
             <p>The privacy-first subscription shield. Track trials, starve dark patterns, and kill zombie bills — without handing over a single bank password.</p>
             <div class="footer__badges">

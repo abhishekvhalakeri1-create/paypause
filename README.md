@@ -12,6 +12,15 @@ All money is displayed in **Indian Rupees (₹)** with `en-IN` digit grouping (e
 using realistic Indian subscription price points. The live network feed only ever shows small,
 relatable savings — every individual event is capped below ₹500.
 
+## Visual identity
+
+The UI uses the official PayPause logo (`assets/img/paypause-logo-full.png`, with a compact
+`paypause-mark-sm.png` for navs and favicons) and a cream-and-green light theme sampled
+directly from the logo: cream `#fbf9f4` canvas, deep green `#0e6c50` primary, mint `#8ed5a4`
+accents. The landing hero uses a human-centric photo (`assets/img/hero-people.jpg`) with the
+content column cast to the left and floating proof cards — including blocked charges in
+rupees — layered over the photo.
+
 ## What's inside
 
 ### Marketing site (`index.html`)
@@ -94,7 +103,8 @@ runtime errors under malformed input.
 │   │   ├── landing.js      # landing interactions + card generator
 │   │   ├── dashboard.js    # app rendering and all user flows
 │   │   └── community.js    # community feed, voting, comments, persistence
-│   └── fonts/              # self-hosted WOFF2 fonts
+│   ├── fonts/              # self-hosted WOFF2 fonts
+│   └── img/                # PayPause logo marks + human hero photo
 └── test/smoke.mjs          # jsdom end-to-end smoke tests
 ```
 

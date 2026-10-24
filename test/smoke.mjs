@@ -78,6 +78,21 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   if (/ghostsub|ghost card|phantom/i.test(source))
     throw new Error("old brand strings still present");
 
+  // uploaded logo + human photo background are wired in
+  const heroLogo = window.document.querySelector(".hero__logo");
+  if (!heroLogo || !heroLogo.getAttribute("src").includes("paypause-logo-full.png"))
+    throw new Error("hero PayPause logo missing");
+  if (!window.document.querySelector(".hero__bg")) throw new Error("hero photo background missing");
+  const favicon = window.document.querySelector('link[rel="icon"]');
+  if (!favicon || !favicon.getAttribute("href").endsWith(".png")) throw new Error("png favicon missing");
+  if (!window.document.querySelector(".nav .brand__logo")) throw new Error("nav logo image missing");
+
+  // blocked charges are shown in rupees on the hero floats
+  const blockedFloat = window.document.querySelector(".hero-float--blocked").textContent;
+  if (!blockedFloat.includes("₹1,999")) throw new Error("hero blocked charge not in rupees: " + blockedFloat);
+  if (!window.document.querySelector(".hero-float--saved").textContent.includes("₹1,07,200"))
+    throw new Error("hero saved amount missing");
+
   // live ticker populated with two looping groups
   const tickerItems = window.document.querySelectorAll("#ticker-track .ticker__item");
   if (tickerItems.length < 12) throw new Error("live ticker not populated");
@@ -119,6 +134,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   if (!$("#stat-spend").innerHTML.includes("₹9,799"))
     throw new Error("monthly spend stat wrong: " + $("#stat-spend").textContent);
   if (!/PayPause/.test(doc.documentElement.outerHTML)) throw new Error("dashboard missing PayPause brand");
+  if (!doc.querySelector(".sidebar .brand__logo")) throw new Error("dashboard sidebar logo missing");
   if (!doc.querySelector("[data-live-feed] .live-row"))
     throw new Error("dashboard live network panel not rendering");
   if (!$("#donut-total").textContent.includes("₹")) throw new Error("donut total not in rupees");
@@ -222,6 +238,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const posts = $$(".c-post");
   if (posts.length < 8) throw new Error("community feed not seeded: " + posts.length);
   if (!$("#c-rail .c-side-link")) throw new Error("community rail missing");
+  if (!doc.querySelector(".c-nav .brand__logo")) throw new Error("community nav logo missing");
   if (!$("#c-karma").textContent.includes("karma")) throw new Error("karma counter missing");
   if (!$("#ticker-track .ticker__item")) throw new Error("ticker missing on community page");
 
