@@ -34,6 +34,7 @@ function loadPage(file) {
         unobserve() {}
         disconnect() {}
       };
+      window.matchMedia = (q) => ({ matches: false, media: q, addListener() {}, removeListener() {} });
       window.scrollTo = () => {};
     },
   });
@@ -70,7 +71,31 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     throw new Error("generated card number bad");
   if (genCard.querySelector("[data-gc='merchant']").textContent !== "Notion AI")
     throw new Error("merchant not set on card");
-  console.log("✓ landing page: hero, countdown, FAQ, generator");
+
+  // rebrand: PayPause everywhere, old GhostSub naming fully gone
+  const source = window.document.documentElement.outerHTML;
+  if (!source.includes("PayPause")) throw new Error("PayPause brand missing");
+  if (/ghostsub|ghost card|phantom/i.test(source))
+    throw new Error("old brand strings still present");
+
+  // live ticker populated with two looping groups
+  const tickerItems = window.document.querySelectorAll("#ticker-track .ticker__item");
+  if (tickerItems.length < 12) throw new Error("live ticker not populated");
+
+  // live feed seeded and updating (rendered list is capped, so compare top-row id)
+  const feed = window.document.querySelector("[data-live-feed]");
+  if (feed.querySelectorAll(".live-row").length < 5) throw new Error("live feed not seeded");
+  const topIdBefore = feed.querySelector(".live-row").dataset.liveId;
+  const savedBefore = window.PP.live.state.saved;
+  const savedCounter = window.document.querySelector("[data-live-counter='saved']").textContent;
+  if (!/^\$[\d,]+/.test(savedCounter)) throw new Error("live savings counter not rendering");
+  await sleep(5600);
+  const topIdAfter = feed.querySelector(".live-row").dataset.liveId;
+  if (topIdAfter === topIdBefore) throw new Error("live feed did not add an event");
+  if (window.PP.live.state.saved <= savedBefore) throw new Error("live savings total did not rise");
+  const proof = window.document.getElementById("proof-wrap");
+  if (proof.children.length < 1) throw new Error("social-proof popup never appeared");
+  console.log("✓ landing page: hero, countdown, FAQ, generator, rebrand, live feed");
 }
 
 /* ---------------- dashboard ---------------- */
@@ -85,9 +110,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   if (!$("#stat-spend").innerHTML.includes("$184.42"))
     throw new Error("monthly spend stat wrong: " + $("#stat-spend").textContent);
+  if (!/PayPause/.test(doc.documentElement.outerHTML)) throw new Error("dashboard missing PayPause brand");
+  if (!doc.querySelector("[data-live-feed] .live-row"))
+    throw new Error("dashboard live network panel not rendering");
   if ($$(".sub-row").length !== 9) throw new Error("expected 9 subscription rows, got " + $$(".sub-row").length);
   if ($$(".trial-card").length !== 3) throw new Error("expected 3 trial cards");
-  if ($$(".gc-tile").length !== 4) throw new Error("expected 4 ghost cards");
+  if ($$(".gc-tile").length !== 4) throw new Error("expected 4 pause cards");
   if (!$("#donut").style.background.includes("conic-gradient")) throw new Error("donut not rendered");
   if ($$("#bars .bar-col").length !== 6) throw new Error("bar chart missing");
 
@@ -110,7 +138,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     throw new Error("category filter failed: " + visibleNames);
   $$("#sub-filters .chip").find((c) => c.dataset.filter === "All").click();
 
-  // mint a new ghost card
+  // mint a new pause card
   $("#new-card-btn").click();
   if (!$("#modal-card").classList.contains("open")) throw new Error("card modal did not open");
   const before = $$(".gc-tile").length;
@@ -163,7 +191,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   if ($$(".sub-row").length !== 9) throw new Error("reset failed");
   if ($$(".sub-row.is-canceled").length !== 0) throw new Error("reset did not restore canceled sub");
   if ($$(".trial-card").length !== 3) throw new Error("reset trials failed");
-  if (window.GS.state.activity.length !== 5) throw new Error("reset activity feed failed");
+  if (window.PP.state.activity.length !== 5) throw new Error("reset activity feed failed");
 
   console.log("✓ dashboard: stats, views, filters, cards, wizard, trials, reset");
 }

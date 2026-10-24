@@ -3,16 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GhostSub — Free trials shouldn't cost you $49 a month</title>
+    <title>PayPause — Free trials shouldn't cost you $49 a month</title>
     <meta
       name="description"
-      content="GhostSub is a privacy-first subscription shield. Track trials, mint single-use Ghost Cards that lock to $0, and kill zombie subscriptions — without ever sharing a bank login."
+      content="PayPause is a privacy-first subscription shield. Track trials, mint single-use Pause Cards that lock to $0, and kill zombie subscriptions — without ever sharing a bank login."
     />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238473ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-2.5L10 22l2-2 2 2 3-2.5L20 22V10a8 8 0 0 0-8-8Z'/%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238473ff'%3E%3Crect x='6.2' y='4' width='4.2' height='16' rx='1.6'/%3E%3Crect x='13.6' y='4' width='4.2' height='16' rx='1.6'/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/live.css" />
   </head>
   <body>
     <!-- ============ NAV ============ -->
@@ -21,13 +22,14 @@
         <a href="index.html" class="brand">
           <span class="brand__mark">
             <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-2.5L10 22l2-2 2 2 3-2.5L20 22V10a8 8 0 0 0-8-8Z" />
+              <rect x="6.2" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/><rect x="13.6" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/>
             </svg>
           </span>
-          GhostSub
+          PayPause
         </a>
         <nav class="nav__links">
           <a href="#solution">Product</a>
+          <a href="#live">Live savings</a>
           <a href="#how">How it works</a>
           <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
@@ -45,6 +47,7 @@
 
     <div class="mobile-menu">
       <a href="#solution">Product</a>
+      <a href="#live">Live savings</a>
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
@@ -61,8 +64,8 @@
             <span class="hero__badge"><span class="dot"></span> Privacy-first · Zero bank logins · No aggregators</span>
             <h1>Free trials shouldn't turn into <span class="grad-text">$49 surprises.</span></h1>
             <p class="hero__sub">
-              GhostSub watches every subscription and free trial for you, then issues single-use
-              <b>Ghost Cards</b> that lock to $0 the moment a trial ends. No bank passwords, no shady
+              PayPause watches every subscription and free trial for you, then issues single-use
+              <b>Pause Cards</b> that lock to $0 the moment a trial ends. No bank passwords, no shady
               third-party apps, no zombie charges — total financial self-defense in under 60 seconds.
             </p>
             <div class="hero__actions">
@@ -70,9 +73,9 @@
                 Start in under 60 seconds
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
-              <a href="#generator" class="btn btn--ghost">
+              <a href="#generator" class="btn btn--pause">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>
-                Try a Ghost Card
+                Try a Pause Card
               </a>
             </div>
             <div class="hero__micro">
@@ -92,11 +95,11 @@
           </div>
 
           <div class="hero-visual" aria-hidden="true">
-            <!-- main ghost card -->
+            <!-- main pause card -->
             <div class="float-card hero-card">
               <div class="hero-card__top">
                 <span class="hero-card__chip"></span>
-                <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--cyan);font-weight:600">GHOST CARD</span>
+                <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--cyan);font-weight:600">PAUSE CARD</span>
               </div>
               <div class="hero-card__num" id="hero-card-num">5398 8412 7740 2293</div>
               <div class="hero-card__bottom">
@@ -139,6 +142,11 @@
           </div>
         </div>
       </section>
+
+      <!-- ============ LIVE TICKER ============ -->
+      <div class="ticker" aria-label="Recent savings by PayPause members">
+        <div class="ticker__track" id="ticker-track"></div>
+      </div>
 
       <!-- ============ STATS ============ -->
       <section class="stats-band">
@@ -207,7 +215,7 @@
             </div>
             <div>
               <h3>And the "protection" apps? They want the keys to your bank.</h3>
-              <p>Most subscription trackers ask for your online banking username and password — the one credential you should never hand a third party. GhostSub never does. We issue virtual cards instead, so your real banking details never touch us or the merchant.</p>
+              <p>Most subscription trackers ask for your online banking username and password — the one credential you should never hand a third party. PayPause never does. We issue virtual cards instead, so your real banking details never touch us or the merchant.</p>
             </div>
           </div>
         </div>
@@ -217,7 +225,7 @@
       <section class="section" id="solution">
         <div class="container">
           <div class="section-head reveal">
-            <span class="eyebrow">The GhostSub way</span>
+            <span class="eyebrow">The PayPause way</span>
             <h2>Financial self-defense in <span class="grad-text">three moves.</span></h2>
             <p>One dashboard to see every recurring bill, burner cards to starve the trap, and a kill switch that actually works.</p>
           </div>
@@ -239,7 +247,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </div>
               <h3>Block the Trap</h3>
-              <p>Mint instant single-use Ghost Cards — virtual burner cards that self-destruct or lock to $0 the second a free trial ends.</p>
+              <p>Mint instant single-use Pause Cards — virtual burner cards that self-destruct or lock to $0 the second a free trial ends.</p>
               <ul>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Merchant-locked: works at one company only</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Hard spend caps, even $0.00 for pure trials</li>
@@ -278,7 +286,7 @@
             </div>
             <div class="step reveal" data-delay="1">
               <div class="step__num">02</div>
-              <h3>Get a Ghost Card</h3>
+              <h3>Get a Pause Card</h3>
               <p>We generate a merchant-locked burner card with a hard spend cap and an auto-lock timer synced to the trial's last day.</p>
             </div>
             <div class="step reveal" data-delay="2">
@@ -296,7 +304,7 @@
           <div class="generator reveal">
             <div>
               <span class="eyebrow">Try it now</span>
-              <h2>Mint a Ghost Card. <br />No signup required.</h2>
+              <h2>Mint a Pause Card. <br />No signup required.</h2>
               <p class="generator__sub">
                 This generator runs fully in your browser. Pick a merchant and a trial length —
                 watch a real Luhn-valid burner card get created, armed to die the day the trial ends.
@@ -324,9 +332,9 @@
                 </div>
                 <button type="submit" class="btn btn--primary btn--block" id="gen-submit">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  Generate Ghost Card
+                  Generate Pause Card
                 </button>
-                <button type="button" class="btn btn--ghost btn--block" id="gen-flip" style="margin-top:10px">Flip card to see lock terms</button>
+                <button type="button" class="btn btn--pause btn--block" id="gen-flip" style="margin-top:10px">Flip card to see lock terms</button>
               </form>
             </div>
 
@@ -335,26 +343,26 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 Your burner card will appear here.<br />It locks to <b style="color:var(--text)">$0.00</b> when the timer runs out.
               </div>
-              <div class="ghost-card" id="gen-card" style="display:none">
-                <div class="ghost-card__face ghost-card__front">
+              <div class="pause-card" id="gen-card" style="display:none">
+                <div class="pause-card__face pause-card__front">
                   <span class="gc-shine"></span>
                   <div class="gc-top">
                     <span class="gc-brand">
                       <span class="brand__mark">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-2.5L10 22l2-2 2 2 3-2.5L20 22V10a8 8 0 0 0-8-8Z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.2" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/><rect x="13.6" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/></svg>
                       </span>
-                      GHOSTSUB
+                      PAUSE
                     </span>
                     <span class="gc-chip"></span>
                   </div>
                   <div class="gc-number" data-gc="number">5398 0000 0000 0000</div>
                   <div class="gc-meta">
                     <div><span>Locked to</span><b data-gc="merchant">Merchant</b></div>
-                    <div><span>Holder</span><b data-gc="holder">GHOST USER</b></div>
+                    <div><span>Holder</span><b data-gc="holder">PAUSE USER</b></div>
                     <div><span>Expires</span><b data-gc="exp">MM/YY</b></div>
                   </div>
                 </div>
-                <div class="ghost-card__face ghost-card__back">
+                <div class="pause-card__face pause-card__back">
                   <div class="gc-lockline">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     Hard cap <b data-gc="cap">$0.00</b> · all later charges decline
@@ -386,18 +394,18 @@
               <span class="mockup__dot mockup__dot--r"></span>
               <span class="mockup__dot mockup__dot--y"></span>
               <span class="mockup__dot mockup__dot--g"></span>
-              <span class="mockup__url">app.ghostsub.io/dashboard</span>
+              <span class="mockup__url">app.paypause.io/dashboard</span>
             </div>
             <div class="mockup__body">
               <div class="mock-row">
                 <div class="mock-tile"><small>Monthly recurring</small><b>$184.42</b></div>
                 <div class="mock-tile"><small>Trials ending soon</small><b class="warn">2</b></div>
-                <div class="mock-tile"><small>Active Ghost Cards</small><b>3</b></div>
+                <div class="mock-tile"><small>Active Pause Cards</small><b>3</b></div>
                 <div class="mock-tile"><small>Saved this year</small><b class="up">$1,284</b></div>
               </div>
               <div class="mock-line">
                 <span class="mock-line__ico" style="background:linear-gradient(135deg,#b18cff,#5b3fd4)">N</span>
-                <span class="mock-line__name">Notion AI — Plus trial<small>Locks in 1d 14h · Ghost Card ···· 2293</small></span>
+                <span class="mock-line__name">Notion AI — Plus trial<small>Locks in 1d 14h · Pause Card ···· 2293</small></span>
                 <span class="mock-pill mock-pill--risk">Ends soon</span>
                 <span class="mock-line__price">$10.00/mo</span>
               </div>
@@ -409,7 +417,7 @@
               </div>
               <div class="mock-line">
                 <span class="mock-line__ico" style="background:linear-gradient(135deg,#e50914,#8f0b12)">N</span>
-                <span class="mock-line__name">Netflix — Standard<small>Renews in 3 days · Ghost-protected</small></span>
+                <span class="mock-line__name">Netflix — Standard<small>Renews in 3 days · Pause-protected</small></span>
                 <span class="mock-pill mock-pill--safe">Stable</span>
                 <span class="mock-line__price">$15.49/mo</span>
               </div>
@@ -420,6 +428,41 @@
               Explore the live dashboard
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LIVE NETWORK ============ -->
+      <section class="section live-section" id="live">
+        <div class="container">
+          <div class="section-head section-head--center reveal">
+            <span class="eyebrow"><span class="live-badge" style="margin-right:4px"><span></span>LIVE</span> The PayPause network</span>
+            <h2>Savings happening <span class="grad-text">right now.</span></h2>
+            <p>Every time a Pause Card declines a renewal, it shows up here. This is what financial self-defense looks like, ticking in real time across thousands of members.</p>
+          </div>
+
+          <div class="live-stats reveal">
+            <div class="live-stat">
+              <b data-live-counter="saved">$0.00</b>
+              <span>Kept out of merchant pockets</span>
+            </div>
+            <div class="live-stat">
+              <b data-live-counter="blocks">0</b>
+              <span>Renewal charges declined</span>
+            </div>
+            <div class="live-stat">
+              <b data-live-counter="members">0</b>
+              <span>Members protected worldwide</span>
+            </div>
+          </div>
+
+          <div class="live-panel reveal" data-delay="1">
+            <div class="live-panel__head">
+              <span class="live-badge"><span></span>LIVE</span>
+              <h3>Latest saves on the network</h3>
+              <small>Simulated network activity for demo purposes · no real money moves</small>
+            </div>
+            <div class="live-feed" data-live-feed data-live-limit="7"></div>
           </div>
         </div>
       </section>
@@ -440,7 +483,7 @@
                 <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </div>
-              <blockquote><p>I used to lose around $40 a month to trials I forgot about. GhostSub just locks the card when the timer ends. I haven't disputed a single charge since I signed up.</p></blockquote>
+              <blockquote><p>I used to lose around $40 a month to trials I forgot about. PayPause just locks the card when the timer ends. I haven't disputed a single charge since I signed up.</p></blockquote>
               <div class="quote-card__person">
                 <span class="avatar avatar--1">MR</span>
                 <span><b>Maya Rodriguez</b><small>Design student, Austin</small></span>
@@ -488,25 +531,25 @@
           </div>
           <div class="pricing-grid">
             <article class="card price-card reveal">
-              <div class="price-card__name">Ghost</div>
+              <div class="price-card__name">Starter</div>
               <div class="price-card__amount"><b>$0</b><span>forever</span></div>
               <p class="price-card__desc">For trying the idea and shielding a couple of risky trials.</p>
               <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 3 active Ghost Cards</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 3 active Pause Cards</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Track up to 10 subscriptions</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Renewal countdowns &amp; alerts</li>
                 <li class="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg> 1-tap Kill the Bill</li>
               </ul>
-              <a href="dashboard.html" class="btn btn--ghost btn--block">Start free</a>
+              <a href="dashboard.html" class="btn btn--pause btn--block">Start free</a>
             </article>
 
             <article class="card price-card price-card--featured reveal" data-delay="1">
               <span class="price-card__flag">Most popular</span>
-              <div class="price-card__name">Phantom</div>
+              <div class="price-card__name">Plus</div>
               <div class="price-card__amount"><b>$6</b><span>/ month, billed yearly</span></div>
               <p class="price-card__desc">For anyone who signs up for more trials than they'd like to admit.</p>
               <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Unlimited Ghost Cards &amp; subscriptions</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Unlimited Pause Cards &amp; subscriptions</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Merchant-locking &amp; hard spend caps</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1-tap Kill the Bill with scripts</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Zombie-detection risk scores</li>
@@ -515,16 +558,16 @@
             </article>
 
             <article class="card price-card reveal" data-delay="2">
-              <div class="price-card__name">Sentinel</div>
+              <div class="price-card__name">Household</div>
               <div class="price-card__amount"><b>$12</b><span>/ month, billed yearly</span></div>
               <p class="price-card__desc">For households sharing streaming, tools and one Amazon password.</p>
               <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Phantom</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Plus</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 6 protected profiles</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Shared card vault &amp; family radar</li>
                 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority human support</li>
               </ul>
-              <a href="dashboard.html" class="btn btn--ghost btn--block">Choose Sentinel</a>
+              <a href="dashboard.html" class="btn btn--pause btn--block">Choose Household</a>
             </article>
           </div>
         </div>
@@ -542,10 +585,10 @@
               <button class="faq__q">Do you need my bank login or card number?
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
               </button>
-              <div class="faq__a"><div class="faq__a-inner"><strong>Never.</strong> GhostSub doesn't connect to your bank account at all. We generate brand-new virtual Ghost Cards, so your real card number and banking credentials are never shared with us — or with the merchant running the trial.</div></div>
+              <div class="faq__a"><div class="faq__a-inner"><strong>Never.</strong> PayPause doesn't connect to your bank account at all. We generate brand-new virtual Pause Cards, so your real card number and banking credentials are never shared with us — or with the merchant running the trial.</div></div>
             </div>
             <div class="faq__item">
-              <button class="faq__q">How does a Ghost Card actually stop a charge?
+              <button class="faq__q">How does a Pause Card actually stop a charge?
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
               </button>
               <div class="faq__a"><div class="faq__a-inner">Each card is <strong>merchant-locked</strong> and carries a hard spend cap (which can be $0.00) plus an auto-lock timer. When the trial ends, the card locks itself and any renewal request is declined like a normal insufficient-funds response. Nothing ever reaches your real account.</div></div>
@@ -554,25 +597,25 @@
               <button class="faq__q">What if I actually want to keep the subscription?
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
               </button>
-              <div class="faq__a"><div class="faq__a-inner">Easy. Extend the lock, raise the cap, or swap in a permanent card from the dashboard before renewal day. GhostSub is a shield, not a wall — you stay in full control of what gets paid.</div></div>
+              <div class="faq__a"><div class="faq__a-inner">Easy. Extend the lock, raise the cap, or swap in a permanent card from the dashboard before renewal day. PayPause is a shield, not a wall — you stay in full control of what gets paid.</div></div>
             </div>
             <div class="faq__item">
               <button class="faq__q">Which merchants does it work with?
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
               </button>
-              <div class="faq__a"><div class="faq__a-inner">Any merchant that accepts standard card payments online or in-app — streaming, SaaS, AI tools, gyms, meal kits, news subscriptions. If it asks for a card number at signup, a Ghost Card works there.</div></div>
+              <div class="faq__a"><div class="faq__a-inner">Any merchant that accepts standard card payments online or in-app — streaming, SaaS, AI tools, gyms, meal kits, news subscriptions. If it asks for a card number at signup, a Pause Card works there.</div></div>
             </div>
             <div class="faq__item">
               <button class="faq__q">How is this different from my bank's virtual cards?
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
               </button>
-              <div class="faq__a"><div class="faq__a-inner">Bank virtual cards are usually static and manual. Ghost Cards are <strong>timer-aware</strong>: they know your trial's end date, lock themselves automatically, and live inside a dashboard that also tracks renewals, flags zombie subscriptions and cancels them for you.</div></div>
+              <div class="faq__a"><div class="faq__a-inner">Bank virtual cards are usually static and manual. Pause Cards are <strong>timer-aware</strong>: they know your trial's end date, lock themselves automatically, and live inside a dashboard that also tracks renewals, flags zombie subscriptions and cancels them for you.</div></div>
             </div>
             <div class="faq__item">
               <button class="faq__q">Is this a real, regulated financial product?
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
               </button>
-              <div class="faq__a"><div class="faq__a-inner"><strong>Honest answer: no, not yet.</strong> GhostSub is a hackathon concept demo. No real cards are issued, no money moves, and every interaction on this site runs entirely in your browser. The card numbers shown are valid-format test data generated on your device.</div></div>
+              <div class="faq__a"><div class="faq__a-inner"><strong>Honest answer: no, not yet.</strong> PayPause is a hackathon concept demo. No real cards are issued, no money moves, and every interaction on this site runs entirely in your browser. The card numbers shown are valid-format test data generated on your device.</div></div>
             </div>
           </div>
         </div>
@@ -585,7 +628,7 @@
             <h2>The next free trial you sign up for <br class="hide-mobile" />doesn't have to be a trap.</h2>
             <p>Arm your inbox in under 60 seconds. Your bank login is not invited.</p>
             <a href="dashboard.html" class="btn btn--primary">
-              Open the GhostSub dashboard
+              Open the PayPause dashboard
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <div class="hero__micro">
@@ -605,9 +648,9 @@
           <div class="footer__about">
             <a href="index.html" class="brand">
               <span class="brand__mark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-2.5L10 22l2-2 2 2 3-2.5L20 22V10a8 8 0 0 0-8-8Z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0b0b14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.2" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/><rect x="13.6" y="4" width="4.2" height="16" rx="1.6" fill="#0b0b14" stroke="none"/></svg>
               </span>
-              GhostSub
+              PayPause
             </a>
             <p>The privacy-first subscription shield. Track trials, starve dark patterns, and kill zombie bills — without handing over a single bank password.</p>
             <div class="footer__badges">
@@ -619,7 +662,7 @@
             <h4>Product</h4>
             <ul>
               <li><a href="dashboard.html">Dashboard</a></li>
-              <li><a href="#generator">Ghost Cards</a></li>
+              <li><a href="#generator">Pause Cards</a></li>
               <li><a href="#pricing">Pricing</a></li>
               <li><a href="#faq">FAQ</a></li>
             </ul>
@@ -644,14 +687,17 @@
           </div>
         </div>
         <div class="footer__bottom">
-          <span>© <span id="year">2026</span> GhostSub. Hackathon concept demo — no real cards are issued and no data leaves your browser.</span>
+          <span>© <span id="year">2026</span> PayPause. Hackathon concept demo — no real cards are issued and no data leaves your browser.</span>
           <span>Built with paranoia, in a good way.</span>
         </div>
       </div>
     </footer>
 
+    <div class="proof-wrap" id="proof-wrap" aria-live="polite"></div>
+
     <script src="assets/js/data.js"></script>
     <script src="assets/js/ui.js"></script>
+    <script src="assets/js/live.js"></script>
     <script src="assets/js/landing.js"></script>
   </body>
 </html>

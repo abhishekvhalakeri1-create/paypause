@@ -1,11 +1,11 @@
 /* ============================================================
-   GhostSub — data layer: seed data, state, card engine
+   PayPause — data layer: seed data, state, card engine
    Everything lives in the browser. Nothing is sent anywhere.
    ============================================================ */
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "ghostsub_state_v1";
+  const STORAGE_KEY = "paypause_state_v1";
   const HOUR = 3600 * 1000;
   const DAY = 24 * HOUR;
 
@@ -68,7 +68,7 @@
   }
 
   function generateCardNumber() {
-    // GhostSub BIN range (fictional, demo-only): 5398 84xx xxxx xxxx
+    // PayPause BIN range (fictional, demo-only): 5398 84xx xxxx xxxx
     let prefix = "539884";
     let body = prefix;
     for (let i = 0; i < 9; i++) body += Math.floor(Math.random() * 10);
@@ -87,7 +87,7 @@
     return `${pad2(d.getMonth() + 1)}/${String(d.getFullYear()).slice(2)}`;
   }
 
-  function makeGhostCard(overrides = {}) {
+  function makepauseCard(overrides = {}) {
     const now = Date.now();
     return Object.assign(
       {
@@ -280,22 +280,22 @@
     ];
 
     const cards = [
-      makeGhostCard({
+      makepauseCard({
         merchant: "Notion AI",
         cap: 1.0,
         autoLockAt: now + 38 * HOUR,
       }),
-      makeGhostCard({
+      makepauseCard({
         merchant: "Figma Professional",
         cap: 0.0,
         autoLockAt: now + 2 * DAY + 6 * HOUR,
       }),
-      makeGhostCard({
+      makepauseCard({
         merchant: "Cursor Pro",
         cap: 0.0,
         autoLockAt: now + 10 * DAY + 9 * HOUR,
       }),
-      makeGhostCard({
+      makepauseCard({
         merchant: "Adobe Creative Cloud",
         cap: 0.0,
         autoLockAt: now - 2 * DAY,
@@ -316,7 +316,7 @@
         id: uid("ac"),
         kind: "block",
         title: "Charge blocked · Adobe Creative Cloud",
-        sub: "Ghost Card self-destructed at trial end",
+        sub: "Pause Card self-destructed at trial end",
         amount: "$59.99",
         when: "2 days ago",
       },
@@ -331,7 +331,7 @@
       {
         id: uid("ac"),
         kind: "card",
-        title: "Ghost Card created · Notion AI",
+        title: "Pause Card created · Notion AI",
         sub: "Hard cap $1.00 · auto-lock armed",
         amount: "",
         when: "Yesterday",
@@ -340,7 +340,7 @@
         id: uid("ac"),
         kind: "warn",
         title: "Renewal reminder · ChatGPT Plus",
-        sub: "Renews tomorrow — no Ghost Card attached",
+        sub: "Renews tomorrow — no Pause Card attached",
         amount: "$20.00",
         when: "Today",
       },
@@ -359,7 +359,7 @@
     return {
       version: 1,
       savedAt: now.toISOString(),
-      user: { name: "Jordan Avery", plan: "Phantom Pro", initials: "JA" },
+      user: { name: "Jordan Avery", plan: "Plus", initials: "JA" },
       savedThisYear: 1284.0,
       subs,
       trials,
@@ -396,12 +396,12 @@
 
   function reset() {
     state = seed();
-    window.GS.state = state;
+    window.PP.state = state;
     save();
     return state;
   }
 
-  window.GS = {
+  window.PP = {
     state,
     save,
     reset,
@@ -418,7 +418,7 @@
       generateCardNumber,
       generateCVC,
       generateExpiry,
-      makeGhostCard,
+      makepauseCard,
       CATEGORY_COLORS,
       DAY,
       HOUR,

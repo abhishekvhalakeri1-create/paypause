@@ -1,7 +1,7 @@
 {
-  "name": "ghostsub",
+  "name": "paypause",
   "version": "1.0.0",
-  "description": "GhostSub — privacy-first subscription shield and trial manager (hackathon demo)",
+  "description": "PayPause — privacy-first subscription shield and trial manager (hackathon demo)",
   "private": true,
   "scripts": {
     "start": "python3 -m http.server 8080",

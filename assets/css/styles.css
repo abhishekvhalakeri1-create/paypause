@@ -1,5 +1,5 @@
 /* ============================================================
-   GhostSub — design system + landing page
+   PayPause — design system + landing page
    ============================================================ */
 
 /* ---------- Fonts ---------- */
@@ -257,12 +257,12 @@ section[id] {
   transform: translateY(-2px);
   box-shadow: 0 14px 38px rgba(110, 100, 255, 0.5);
 }
-.btn--ghost {
+.btn--pause {
   background: rgba(255, 255, 255, 0.04);
   border-color: var(--border-strong);
   color: var(--text);
 }
-.btn--ghost:hover {
+.btn--pause:hover {
   background: rgba(255, 255, 255, 0.09);
   border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
@@ -956,14 +956,14 @@ section[id] {
   background: var(--surface-2);
 }
 
-/* Flippable ghost card */
+/* Flippable pause card */
 .card-stage {
   perspective: 1400px;
   min-height: 300px;
   display: grid;
   place-items: center;
 }
-.ghost-card {
+.pause-card {
   width: 100%;
   max-width: 400px;
   aspect-ratio: 1.586;
@@ -971,10 +971,10 @@ section[id] {
   transform-style: preserve-3d;
   transition: transform 0.9s var(--ease);
 }
-.ghost-card.is-flipped {
+.pause-card.is-flipped {
   transform: rotateY(180deg);
 }
-.ghost-card__face {
+.pause-card__face {
   position: absolute;
   inset: 0;
   border-radius: 20px;
@@ -985,12 +985,12 @@ section[id] {
   flex-direction: column;
   overflow: hidden;
 }
-.ghost-card__front {
+.pause-card__front {
   background: var(--grad-card);
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
-.ghost-card__back {
+.pause-card__back {
   background: linear-gradient(135deg, #1a1838, #0f1f2b);
   border: 1px solid rgba(255, 255, 255, 0.14);
   transform: rotateY(180deg);

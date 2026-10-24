@@ -1,9 +1,9 @@
 /* ============================================================
-   GhostSub — dashboard application
+   PayPause — dashboard application
    ============================================================ */
 (function () {
   "use strict";
-  const { state, save, reset, utils, ui } = window.GS;
+  const { state, save, reset, utils, ui } = window.PP;
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
@@ -11,8 +11,8 @@
   const I = {
     shield:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>',
-    ghost:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-2.5L10 22l2-2 2 2 3-2.5L20 22V10a8 8 0 0 0-8-8Z"/></svg>',
+    pause:
+      '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6.2" y="4" width="4.2" height="16" rx="1.6"/><rect x="13.6" y="4" width="4.2" height="16" rx="1.6"/></svg>',
     bell:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
     search:
@@ -132,14 +132,14 @@
       </div>
       <div class="stat-tile__label">Free trials on radar</div>
       <div class="stat-tile__value">${state.trials.length}</div>
-      <div class="stat-tile__hint">Every one is backed by a Ghost Card</div>`;
+      <div class="stat-tile__hint">Every one is backed by a Pause Card</div>`;
 
     $("#stat-cards").innerHTML = `
       <div class="stat-tile__top">
         <span class="stat-tile__ico card__icon--cyan">${I.card}</span>
         <span class="stat-tile__delta delta--flat">${state.cards.length} total</span>
       </div>
-      <div class="stat-tile__label">Active Ghost Cards</div>
+      <div class="stat-tile__label">Active Pause Cards</div>
       <div class="stat-tile__value">${activeCards}</div>
       <div class="stat-tile__hint">Merchant-locked · auto-armed</div>`;
 
@@ -270,7 +270,7 @@
           <b class="ov-timer" data-endts="${t.endsAt}">
             <span data-unit="d">–</span>d <span data-unit="h">–</span>h <span data-unit="m">–</span>m
           </b>
-          <small>${card ? "Ghost Card · ···· " + last4(card.number) : "No card"}</small>
+          <small>${card ? "Pause Card · ···· " + last4(card.number) : "No card"}</small>
         </div>
       </div>`;
       })
@@ -321,7 +321,7 @@
               ${riskBadge(s)}
               ${
                 s.protected && s.status !== "canceled"
-                  ? `<span class="badge badge--violet">${I.ghost} Ghost-protected</span>`
+                  ? `<span class="badge badge--violet">${I.pause} Pause-protected</span>`
                   : ""
               }
             </div>
@@ -342,12 +342,12 @@
           <div class="sub-actions">
             ${
               s.status === "canceled"
-                ? `<button class="btn btn--ghost btn--sm" data-reactivate="${s.id}">${I.refresh} Reactivate</button>`
+                ? `<button class="btn btn--pause btn--sm" data-reactivate="${s.id}">${I.refresh} Reactivate</button>`
                 : `
               ${
                 s.protected
                   ? ""
-                  : `<button class="btn btn--ghost btn--sm" data-protect="${s.id}" title="Issue a Ghost Card">${I.shield} Protect</button>`
+                  : `<button class="btn btn--pause btn--sm" data-protect="${s.id}" title="Issue a Pause Card">${I.shield} Protect</button>`
               }
               <button class="btn btn--danger btn--sm" data-cancel="${s.id}">${I.zap} Kill</button>`
             }
@@ -403,13 +403,13 @@
               <b>${utils.money(t.chargeAfter)}/mo</b>
             </div>
             <div>
-              <small>Ghost Card</small>
+              <small>Pause Card</small>
               <b>${card ? "···· " + last4(card.number) : "Not linked"}</b>
             </div>
           </div>
 
           <div class="trial-card__actions">
-            <button class="btn btn--ghost btn--sm" data-extend="${t.id}">${I.plus} Extend +3d</button>
+            <button class="btn btn--pause btn--sm" data-extend="${t.id}">${I.plus} Extend +3d</button>
             <button class="btn btn--danger btn--sm" data-killtrial="${t.id}">${I.ban} Cancel trial</button>
           </div>
         </article>`;
@@ -418,7 +418,7 @@
   }
 
   /* ============================================================
-     RENDER: ghost cards view
+     RENDER: pause cards view
      ============================================================ */
   function cardStatusBadge(c) {
     if (c.status === "destroyed")
@@ -438,7 +438,7 @@
             ${cardStatusBadge(c)}
             <div class="gc-top">
               <span class="gc-brand">
-                <span class="brand__mark">${I.ghost}</span> GHOSTSUB
+                <span class="brand__mark">${I.pause}</span> PAUSE
               </span>
               <span class="gc-chip"></span>
             </div>
@@ -464,12 +464,12 @@
             <div class="gc-detail__actions">
               ${
                 c.status === "active"
-                  ? `<button class="btn btn--ghost btn--sm" data-lockcard="${c.id}">${I.lock} Lock now</button>
+                  ? `<button class="btn btn--pause btn--sm" data-lockcard="${c.id}">${I.lock} Lock now</button>
                      <button class="btn btn--danger btn--sm" data-destroycard="${c.id}">${I.trash} Destroy</button>`
                   : c.status === "locked"
-                  ? `<button class="btn btn--ghost btn--sm" data-unlockcard="${c.id}">${I.unlock} Unlock</button>
+                  ? `<button class="btn btn--pause btn--sm" data-unlockcard="${c.id}">${I.unlock} Unlock</button>
                      <button class="btn btn--danger btn--sm" data-destroycard="${c.id}">${I.trash} Destroy</button>`
-                  : `<button class="btn btn--ghost btn--sm" disabled>${I.ban} Card terminated</button>`
+                  : `<button class="btn btn--pause btn--sm" disabled>${I.ban} Card terminated</button>`
               }
             </div>
           </div>
@@ -483,7 +483,7 @@
       <button class="gc-new" id="new-card-tile">
         <span>
           ${I.plus}
-          <b>Mint a new Ghost Card</b>
+          <b>Mint a new Pause Card</b>
           <small>Single-use burner · ready in seconds</small>
         </span>
       </button>`;
@@ -542,8 +542,8 @@
   const VIEW_META = {
     overview: ["Command center", "Your subscriptions, trials and shields at a glance"],
     subs: ["Subscriptions", "Every recurring bill, sorted by what it actually costs you"],
-    trials: ["Free trials", "Countdowns are running — Ghost Cards are already armed"],
-    cards: ["Ghost Cards", "Merchant-locked burner cards that die on schedule"],
+    trials: ["Free trials", "Countdowns are running — Pause Cards are already armed"],
+    cards: ["Pause Cards", "Merchant-locked burner cards that die on schedule"],
   };
 
   function switchView(view) {
@@ -584,7 +584,7 @@
   });
 
   /* ============================================================
-     New Ghost Card modal
+     New Pause Card modal
      ============================================================ */
   const modalCard = $("#modal-card");
   const fMerchant = $("#f-merchant");
@@ -643,7 +643,7 @@
       ui.toast("Pick a future lock date", "The auto-lock has to happen after today.", "warn");
       return;
     }
-    const card = utils.makeGhostCard({
+    const card = utils.makepauseCard({
       merchant,
       cap,
       autoLockAt: lockAt,
@@ -652,14 +652,14 @@
     state.cards.unshift(card);
     pushActivity(
       "card",
-      `Ghost Card created · ${merchant}`,
+      `Pause Card created · ${merchant}`,
       `Hard cap ${utils.money(cap)} · locks ${utils.fmtShort(new Date(lockAt))}`,
       ""
     );
     save();
     renderAll();
     ui.closeModal("modal-card");
-    ui.toast("Ghost Card minted", `···· ${last4(card.number)} is locked to ${merchant}.`, "ok");
+    ui.toast("Pause Card minted", `···· ${last4(card.number)} is locked to ${merchant}.`, "ok");
     switchView("cards");
   });
 
@@ -776,14 +776,14 @@
       pushActivity(
         "block",
         `Trial canceled · ${tr.merchant}`,
-        "Ghost Card locked — conversion charge pre-blocked",
+        "Pause Card locked — conversion charge pre-blocked",
         utils.money(tr.chargeAfter)
       );
       save();
       renderAll();
       return ui.toast(
         "Trial killed",
-        `${tr.merchant} can't charge you — the Ghost Card is at $0.`,
+        `${tr.merchant} can't charge you — the Pause Card is at $0.`,
         "ok",
         5000
       );
@@ -796,7 +796,7 @@
       const c = state.cards.find((x) => x.id === t.dataset.lockcard);
       c.status = "locked";
       c.autoLockAt = Date.now();
-      pushActivity("block", `Ghost Card locked · ${c.merchant}`, "Manual lock — all charges declined", "");
+      pushActivity("block", `Pause Card locked · ${c.merchant}`, "Manual lock — all charges declined", "");
       save();
       renderAll();
       return ui.toast("Card locked", `···· ${last4(c.number)} will now decline every charge.`, "warn");
@@ -826,7 +826,7 @@
       }
       c.status = "destroyed";
       c.autoLockAt = Date.now();
-      pushActivity("block", `Ghost Card destroyed · ${c.merchant}`, "Card number terminated permanently", "");
+      pushActivity("block", `Pause Card destroyed · ${c.merchant}`, "Card number terminated permanently", "");
       save();
       renderAll();
       return ui.toast("Card destroyed", `···· ${last4(c.number)} no longer exists. Poof.`, "danger");
@@ -876,7 +876,7 @@
     subQuery = "";
     $("#sub-search").value = "";
     renderAll();
-    ui.toast("Demo data restored", "Fresh subscriptions, trials and Ghost Cards.", "info");
+    ui.toast("Demo data restored", "Fresh subscriptions, trials and Pause Cards.", "info");
   });
 
   /* ---------------- greeting + clock ---------------- */
@@ -902,7 +902,7 @@
     save();
     setTimeout(() => {
       ui.toast(
-        "Welcome to your GhostSub dashboard",
+        "Welcome to your PayPause dashboard",
         "This is a live demo — every card, timer and cancellation runs entirely in your browser.",
         "info",
         5600

@@ -1,9 +1,9 @@
 /* ============================================================
-   GhostSub — landing page interactions
+   PayPause — landing page interactions
    ============================================================ */
 (function () {
   "use strict";
-  const { utils, ui } = window.GS;
+  const { utils, ui } = window.PP;
 
   /* ---------- sticky nav ---------- */
   const nav = document.querySelector(".nav");
@@ -81,7 +81,7 @@
     });
   });
 
-  /* ---------- Ghost Card generator widget ---------- */
+  /* ---------- Pause Card generator widget ---------- */
   const form = document.getElementById("gen-form");
   if (form) {
     const merchantSel = document.getElementById("gen-merchant");
@@ -111,7 +111,7 @@
 
       els.number.textContent = utils.generateCardNumber();
       els.merchant.textContent = merchant;
-      els.holder.textContent = "GHOST USER";
+      els.holder.textContent = "PAUSE USER";
       els.exp.textContent = utils.generateExpiry();
       els.cvc.textContent = utils.generateCVC();
       els.cap.textContent = "$0.00";
@@ -130,7 +130,7 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg> Generate another';
 
       ui.toast(
-        "Ghost Card generated",
+        "Pause Card generated",
         `Locked to ${merchant} · declines every charge after ${utils.fmtShort(lockDate)}`,
         "ok"
       );

@@ -69,6 +69,6 @@
     }
   });
 
-  window.GS = window.GS || {};
-  window.GS.ui = { toast, openModal, closeModal };
+  window.PP = window.PP || {};
+  window.PP.ui = { toast, openModal, closeModal };
 })();
