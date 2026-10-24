@@ -84,6 +84,39 @@ the live savings feed updates on its timer, and fails on any uncaught page error
 chaos sweep double-clicks every control and submits every form to prove the apps throw zero
 runtime errors under malformed input.
 
+## Deploy to Render (free, sharable public URL)
+
+This repo is a pure static site — no build command and no server needed. A `render.yaml`
+Blueprint is included, so the configuration is automatic.
+
+### Option A — Blueprint (recommended, one screen)
+
+1. Push this branch to GitHub and open **https://dashboard.render.com/blueprints**
+2. Click **New Blueprint Instance**
+3. Choose the **paypause** repository (authorise Render on GitHub if prompted)
+4. Render reads `render.yaml` and shows a `paypause` **Static Site** on the **free** plan —
+   click **Apply** / **Create Resources**
+5. Wait for the deploy to finish, then open the generated URL, e.g.
+   `https://paypause.onrender.com` — that link is your sharable website
+
+### Option B — manual static site
+
+1. In the Render dashboard choose **New + → Static Site**
+2. Connect the **paypause** repository, branch `arena/a59ab55a-paypause`
+3. Set **Build Command** to empty (leave blank) and **Publish Directory** to `.`
+4. Under **Redirects/Rewrites** add rewrites so clean URLs work:
+   `/dashboard → /dashboard.html` and `/community → /community.html`
+5. Create the site — Render issues a public `https://<name>.onrender.com` URL
+
+Notes:
+
+- Render static sites are **free and always on** (unlike free web services, they do not
+  spin down from inactivity).
+- Every `git push` to the connected branch triggers an automatic redeploy;
+  pull requests also get preview URLs (enabled in the Blueprint).
+- Unknown paths automatically serve the branded `404.html`, and the Blueprint adds
+  security headers plus sensible caching for HTML vs. assets.
+
 ## Project structure
 
 ```
@@ -91,6 +124,7 @@ runtime errors under malformed input.
 ├── dashboard.html          # interactive app demo
 ├── community.html          # Reddit-style community app
 ├── 404.html                # branded not-found page
+├── render.yaml             # Render Blueprint (free static-site deploy config)
 ├── robots.txt              # crawl allowlist + sitemap pointer
 ├── sitemap.xml             # all public pages
 ├── site.webmanifest        # installable PWA manifest (theme color, icon)

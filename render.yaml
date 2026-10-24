@@ -1,0 +1,40 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# PayPause is a pure static site (no build step, no server).
+services:
+  - type: web
+    name: paypause
+    runtime: static
+    plan: free
+    # Repository root is the publish directory (index.html lives at the root).
+    staticPublishPath: ./
+    pullRequestPreviewsEnabled: true
+    # Clean-URL convenience: /dashboard serves /dashboard.html without a redirect.
+    routes:
+      - type: rewrite
+        source: /dashboard
+        destination: /dashboard.html
+      - type: rewrite
+        source: /community
+        destination: /community.html
+    headers:
+      # Security headers applied to every response.
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()
+      # HTML should always be revalidated so deploys go live immediately.
+      - path: /*.html
+        name: Cache-Control
+        value: no-cache
+      # Static assets are safe to cache for a day.
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=86400
