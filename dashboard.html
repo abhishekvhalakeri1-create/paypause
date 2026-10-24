@@ -7,17 +7,31 @@
     <meta name="description" content="PayPause dashboard: track subscriptions, arm free-trial Pause Cards and kill zombie bills." />
     <link rel="icon" type="image/png" href="assets/img/paypause-mark-sm.png"
     />
+    <link rel="apple-touch-icon" href="assets/img/paypause-mark-sm.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#0e6c50" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PayPause" />
+    <meta property="og:title" content="Dashboard — PayPause" />
+    <meta property="og:description" content="Track subscriptions, arm free-trial Pause Cards and kill zombie bills." />
+    <meta property="og:image" content="assets/img/paypause-logo-full.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dashboard — PayPause" />
+    <meta name="twitter:description" content="Track subscriptions, arm free-trial Pause Cards and kill zombie bills." />
+    <meta name="twitter:image" content="assets/img/paypause-logo-full.png" />
+
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="assets/css/dashboard.css" />
     <link rel="stylesheet" href="assets/css/live.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="app">
       <!-- ============ SIDEBAR ============ -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
         <div class="sidebar__brand">
           <a href="index.html" class="brand">
-            <img class="brand__logo" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" />
+            <img width="200" height="181" class="brand__logo" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" />
             PayPause
           </a>
         </div>
@@ -66,9 +80,9 @@
       <div class="sidebar-overlay"></div>
 
       <!-- ============ MAIN ============ -->
-      <main class="main">
+      <main class="main" id="main">
         <div class="topbar">
-          <button class="icon-btn menu-btn" aria-label="Open menu">
+          <button class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
           </button>
           <div class="topbar__title">
@@ -78,7 +92,7 @@
           <div class="topbar__spacer"></div>
           <div class="searchbox">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="sub-search" placeholder="Search subscriptions…" />
+            <input type="text" id="sub-search" aria-label="Search subscriptions" placeholder="Search subscriptions…" />
           </div>
           <button class="icon-btn" id="bell" aria-label="Notifications">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
@@ -201,10 +215,10 @@
 
     <!-- ============ MODAL: NEW PAUSE CARD ============ -->
     <div class="modal-backdrop" id="modal-card">
-      <div class="modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-card-title">
         <div class="modal__head">
           <div>
-            <h3>Mint a new Pause Card</h3>
+            <h3 id="modal-card-title">Mint a new Pause Card</h3>
             <p>A burner card locked to one merchant, armed with a hard cap and an auto-lock timer.</p>
           </div>
           <button class="modal__close" data-close-modal aria-label="Close">
@@ -280,10 +294,10 @@
 
     <!-- ============ MODAL: KILL THE BILL WIZARD ============ -->
     <div class="modal-backdrop" id="modal-cancel">
-      <div class="modal">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-cancel-title">
         <div class="modal__head">
           <div>
-            <h3>Kill the Bill</h3>
+            <h3 id="modal-cancel-title">Kill the Bill</h3>
             <p>Two clicks between you and one fewer recurring charge.</p>
           </div>
           <button class="modal__close" data-close-modal aria-label="Close">

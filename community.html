@@ -10,20 +10,34 @@
     />
     <link rel="icon" type="image/png" href="assets/img/paypause-mark-sm.png"
     />
+    <link rel="apple-touch-icon" href="assets/img/paypause-mark-sm.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#0e6c50" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PayPause" />
+    <meta property="og:title" content="Community — PayPause" />
+    <meta property="og:description" content="Share subscription trap reports, celebrate blocked charges, and learn Pause Card strategies." />
+    <meta property="og:image" content="assets/img/paypause-logo-full.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Community — PayPause" />
+    <meta name="twitter:description" content="Share subscription trap reports, celebrate blocked charges, and learn Pause Card strategies." />
+    <meta name="twitter:image" content="assets/img/paypause-logo-full.png" />
+
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="assets/css/live.css" />
     <link rel="stylesheet" href="assets/css/community.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <!-- ============ TOP NAV ============ -->
     <nav class="c-nav">
       <a href="index.html" class="brand">
-        <img class="brand__logo" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" />
+        <img width="200" height="181" class="brand__logo" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" />
         PayPause
       </a>
       <div class="c-search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" id="c-search" placeholder="Search posts, communities, merchants…" />
+        <input type="text" id="c-search" aria-label="Search posts, communities and merchants" placeholder="Search posts, communities, merchants…" />
       </div>
       <div class="c-nav__right">
         <span class="c-karma" id="c-karma">
@@ -51,7 +65,8 @@
       </aside>
 
       <!-- main feed -->
-      <main>
+      <main id="main">
+        <h1 class="sr-only">PayPause community — trap reports, wins and Pause Card strategies</h1>
         <div class="c-tabs">
           <button class="c-tab active" data-sort="hot">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg>
@@ -69,7 +84,7 @@
 
         <div class="c-composer" id="c-composer">
           <span class="avatar avatar--2">YO</span>
-          <input type="text" placeholder="Share a trap report, a win, or ask for help…" tabindex="-1" readonly />
+          <input type="text" placeholder="Share a trap report, a win, or ask for help…" aria-label="Create a community post" tabindex="-1" readonly />
           <button class="btn btn--primary btn--sm" data-openpost>Create post</button>
         </div>
 
@@ -95,10 +110,10 @@
 
     <!-- ============ CREATE POST MODAL ============ -->
     <div class="modal-backdrop" id="modal-post">
-      <div class="modal c-modal">
+      <div class="modal c-modal" role="dialog" aria-modal="true" aria-labelledby="modal-post-title">
         <div class="modal__head">
           <div>
-            <h3>Create a post</h3>
+            <h3 id="modal-post-title">Create a post</h3>
             <p>Tell the community about a trap, a win, or a question you need help with.</p>
           </div>
           <button class="modal__close" data-close-modal aria-label="Close">

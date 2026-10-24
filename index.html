@@ -10,14 +10,28 @@
     />
     <link rel="icon" type="image/png" href="assets/img/paypause-mark-sm.png"
     />
+    <link rel="apple-touch-icon" href="assets/img/paypause-mark-sm.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#0e6c50" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PayPause" />
+    <meta property="og:title" content="PayPause — Free trials shouldn't cost you ₹499 a month" />
+    <meta property="og:description" content="Track trials, mint single-use Pause Cards that lock to ₹0, and kill zombie subscriptions — without ever sharing a bank login." />
+    <meta property="og:image" content="assets/img/paypause-logo-full.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PayPause — Pause the payments. Take control." />
+    <meta name="twitter:description" content="Privacy-first subscription shield. Pause Cards lock to ₹0 the moment a trial ends." />
+    <meta name="twitter:image" content="assets/img/paypause-logo-full.png" />
+
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="assets/css/live.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <!-- ============ NAV ============ -->
     <header class="nav">
       <div class="container nav__inner">
-        <a href="index.html" class="brand"><img class="brand__logo" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" /> PayPause</a>
+        <a href="index.html" class="brand"><img width="200" height="181" class="brand__logo" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" /> PayPause</a>
         <nav class="nav__links">
           <a href="#solution">Product</a>
           <a href="#live">Live savings</a>
@@ -30,14 +44,14 @@
           <a href="dashboard.html" class="btn btn--primary btn--sm">Open app
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <button class="nav__burger" aria-label="Open menu">
+          <button class="nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
           </button>
         </div>
       </div>
     </header>
 
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobile-menu">
       <a href="#solution">Product</a>
       <a href="#live">Live savings</a>
       <a href="community.html">Community</a>
@@ -47,7 +61,7 @@
       <a href="dashboard.html">Open dashboard →</a>
     </div>
 
-    <main>
+    <main id="main">
       <!-- ============ HERO ============ -->
       <section class="hero">
         <div class="hero__bg" aria-hidden="true"></div>
@@ -85,7 +99,7 @@
                 Works with any merchant
               </span>
             </div>
-            <img class="hero__people-mobile" src="assets/img/hero-people.jpg" alt="A group of people checking their PayPause shields on their phones" loading="lazy" />
+            <img width="1600" height="893" class="hero__people-mobile" src="assets/img/hero-people.jpg" alt="A group of people checking their PayPause shields on their phones" loading="lazy" />
           </div>
         </div>
 
@@ -331,7 +345,7 @@
                   <span class="gc-shine"></span>
                   <div class="gc-top">
                     <span class="gc-brand">
-                      <img class="brand__logo brand__logo--sm" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" /> PAUSE
+                      <img width="200" height="181" loading="lazy" class="brand__logo brand__logo--sm" src="assets/img/paypause-mark-sm.png" alt="PayPause logo" /> PAUSE
                     </span>
                     <span class="gc-chip"></span>
                   </div>
@@ -627,7 +641,7 @@
         <div class="footer__grid">
           <div class="footer__about">
             <a href="index.html" class="brand">
-              <img class="footer-logo" src="assets/img/paypause-logo-full.png" alt="PayPause — Pause the payments. Take control." />
+              <img width="760" height="632" loading="lazy" class="footer-logo" src="assets/img/paypause-logo-full.png" alt="PayPause — Pause the payments. Take control." />
             </a>
             <p>The privacy-first subscription shield. Track trials, starve dark patterns, and kill zombie bills — without handing over a single bank password.</p>
             <div class="footer__badges">

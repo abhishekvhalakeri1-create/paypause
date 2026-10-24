@@ -270,7 +270,7 @@ body {
 }
 .delta--down {
   background: rgba(21, 160, 106, 0.12);
-  color: var(--mint);
+  color: var(--mint-ink);
 }
 .delta--up {
   background: rgba(214, 69, 96, 0.12);
@@ -504,7 +504,7 @@ body {
   font-size: 11px;
   color: var(--faint);
 }
-.feed__ico--ok { background: rgba(21, 160, 106, 0.18); color: var(--mint); }
+.feed__ico--ok { background: rgba(21, 160, 106, 0.18); color: var(--mint-ink); }
 .feed__ico--block { background: rgba(214, 69, 96, 0.16); color: var(--rose); }
 .feed__ico--card { background: rgba(14, 108, 80, 0.18); color: var(--violet-bright); }
 .feed__ico--warn { background: rgba(217, 138, 20, 0.16); color: var(--amber); }
@@ -667,7 +667,7 @@ body {
   width: 11px;
   height: 11px;
 }
-.badge--safe { background: rgba(21, 160, 106, 0.13); color: var(--mint); }
+.badge--safe { background: rgba(21, 160, 106, 0.13); color: var(--mint-ink); }
 .badge--risk { background: rgba(217, 138, 20, 0.14); color: var(--amber); }
 .badge--danger { background: rgba(214, 69, 96, 0.14); color: var(--rose); }
 .badge--violet { background: rgba(14, 108, 80, 0.16); color: var(--violet-bright); }
@@ -719,7 +719,7 @@ body {
   color: var(--amber);
 }
 .trial-countdown__timer.calm {
-  color: var(--cyan);
+  color: var(--cyan-ink);
 }
 .trial-countdown small {
   display: block;
@@ -986,7 +986,7 @@ body {
 .savings-highlight b {
   display: block;
   font-size: 14.5px;
-  color: var(--mint);
+  color: var(--mint-ink);
 }
 .savings-highlight small {
   color: var(--muted);
@@ -1052,8 +1052,8 @@ body {
 }
 .progress-steps li.done .tick {
   background: rgba(21, 160, 106, 0.16);
-  border-color: var(--mint);
-  color: var(--mint);
+  border-color: var(--mint-ink);
+  color: var(--mint-ink);
 }
 .progress-steps li .tick svg {
   width: 13px;
@@ -1077,7 +1077,7 @@ body {
   display: grid;
   place-items: center;
   margin: 0 auto 20px;
-  color: var(--mint);
+  color: var(--mint-ink);
   animation: pop 0.5s var(--ease);
 }
 .wizard-done__icon svg {
@@ -1178,7 +1178,7 @@ body {
 .security-note svg {
   width: 15px;
   height: 15px;
-  color: var(--cyan);
+  color: var(--cyan-ink);
   flex: none;
   margin-top: 2px;
 }

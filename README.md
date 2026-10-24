@@ -90,6 +90,10 @@ runtime errors under malformed input.
 ├── index.html              # marketing site
 ├── dashboard.html          # interactive app demo
 ├── community.html          # Reddit-style community app
+├── 404.html                # branded not-found page
+├── robots.txt              # crawl allowlist + sitemap pointer
+├── sitemap.xml             # all public pages
+├── site.webmanifest        # installable PWA manifest (theme color, icon)
 ├── assets/
 │   ├── css/
 │   │   ├── styles.css      # design system + landing page
@@ -107,6 +111,21 @@ runtime errors under malformed input.
 │   └── img/                # PayPause logo marks + human hero photo
 └── test/smoke.mjs          # jsdom end-to-end smoke tests
 ```
+
+## Quality & accessibility
+
+- **Zero runtime errors**: every page passes a jsdom chaos sweep that clicks every
+  button, link, chip and form control across multiple rounds with a 5-second live
+  engine window; all `localStorage` access is try/catch guarded with in-memory fallback.
+- **WCAG-minded contrast**: text-grade accent tokens (`--mint-ink`, `--cyan-ink`,
+  darkened rose/amber/faint) keep small text at or above 4.5:1 on the cream canvas.
+- **Keyboard & screen readers**: skip-to-content links, visible `:focus-visible` rings,
+  one `h1` per page, labelled inputs, `role="dialog"`/`aria-modal` modals with focus
+  capture and restoration, `aria-expanded` menu buttons, Escape-to-close for menus
+  and dialogs.
+- **Web hygiene**: PNG favicon + apple-touch-icon, Open Graph/Twitter cards,
+  `theme-color`, PWA manifest, `robots.txt`, `sitemap.xml`, branded 404, lazy-loaded
+  below-fold images and intrinsic width/height on every image to prevent layout shift.
 
 ## Important disclaimer
 

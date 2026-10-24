@@ -15,10 +15,28 @@
   const burger = document.querySelector(".nav__burger");
   const mobileMenu = document.querySelector(".mobile-menu");
   if (burger && mobileMenu) {
-    burger.addEventListener("click", () => mobileMenu.classList.toggle("open"));
+    const syncMenu = () => {
+      const open = mobileMenu.classList.contains("open");
+      burger.setAttribute("aria-expanded", String(open));
+      burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+    burger.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
+      syncMenu();
+    });
     mobileMenu.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => mobileMenu.classList.remove("open"))
+      a.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        syncMenu();
+      })
     );
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileMenu.classList.contains("open")) {
+        mobileMenu.classList.remove("open");
+        syncMenu();
+        burger.focus();
+      }
+    });
   }
 
   /* ---------- scroll reveal ---------- */

@@ -568,10 +568,27 @@
   );
 
   /* mobile sidebar */
-  $(".menu-btn").addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
-  $(".sidebar-overlay").addEventListener("click", () =>
-    document.body.classList.remove("sidebar-open")
-  );
+  const menuBtn = $(".menu-btn");
+  const syncSidebar = () => {
+    const open = document.body.classList.contains("sidebar-open");
+    menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+  menuBtn.addEventListener("click", () => {
+    document.body.classList.toggle("sidebar-open");
+    syncSidebar();
+  });
+  $(".sidebar-overlay").addEventListener("click", () => {
+    document.body.classList.remove("sidebar-open");
+    syncSidebar();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("sidebar-open")) {
+      document.body.classList.remove("sidebar-open");
+      syncSidebar();
+      menuBtn.focus();
+    }
+  });
 
   /* topbar quick actions + in-panel jump links */
   $("#new-card-btn").addEventListener("click", () => openCardModal());

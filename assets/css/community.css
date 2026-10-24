@@ -293,14 +293,14 @@ body {
 }
 .c-vote.down button[data-vote="-1"],
 .c-vote button[data-vote="-1"].active {
-  color: var(--cyan);
+  color: var(--cyan-ink);
   background: rgba(13, 148, 136, 0.12);
 }
 .c-vote.up .c-vote__score {
   color: var(--rose);
 }
 .c-vote.down .c-vote__score {
-  color: var(--cyan);
+  color: var(--cyan-ink);
 }
 .c-post__main {
   padding: 14px 18px 12px;
@@ -337,10 +337,10 @@ body {
   padding: 3px 9px;
   border-radius: 100px;
 }
-.c-flair--win { background: rgba(21, 160, 106, 0.14); color: var(--mint); }
+.c-flair--win { background: rgba(21, 160, 106, 0.14); color: var(--mint-ink); }
 .c-flair--warning { background: rgba(217, 138, 20, 0.15); color: var(--amber); }
 .c-flair--story { background: rgba(14, 108, 80, 0.16); color: var(--violet-bright); }
-.c-flair--question { background: rgba(13, 148, 136, 0.13); color: var(--cyan); }
+.c-flair--question { background: rgba(13, 148, 136, 0.13); color: var(--cyan-ink); }
 .c-flair--guide { background: rgba(54, 151, 245, 0.15); color: #5aa9f7; }
 .c-flair--discussion { background: rgba(14, 108, 80, 0.09); color: var(--muted); }
 .c-post h3 {
@@ -382,7 +382,7 @@ body {
   color: var(--text);
 }
 .c-action.saved {
-  color: var(--mint);
+  color: var(--mint-ink);
 }
 .c-action.saved svg {
   fill: var(--mint);

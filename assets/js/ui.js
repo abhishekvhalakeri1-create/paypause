@@ -37,11 +37,19 @@
     }, ttl);
   }
 
+  let lastFocused = null;
+
   function openModal(id) {
     const m = document.getElementById(id);
     if (!m) return;
+    lastFocused = document.activeElement;
     m.classList.add("open");
     document.body.style.overflow = "hidden";
+    const field = m.querySelector("input:not([type='hidden']), select, textarea");
+    const focusable =
+      field ||
+      m.querySelector("button, [href], [tabindex]:not([tabindex='-1'])");
+    if (focusable) focusable.focus();
   }
 
   function closeModal(id) {
@@ -49,6 +57,8 @@
     if (!m) return;
     m.classList.remove("open");
     document.body.style.overflow = "";
+    if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+    lastFocused = null;
   }
 
   // click backdrop / [data-close] to dismiss; Esc key

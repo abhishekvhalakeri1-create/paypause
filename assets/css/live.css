@@ -43,7 +43,7 @@
 .ticker__item em {
   font-style: normal;
   font-family: var(--font-mono);
-  color: var(--mint);
+  color: var(--mint-ink);
   font-weight: 600;
 }
 .ticker__item::after {
@@ -233,7 +233,7 @@
   font-family: var(--font-mono);
   font-size: 13.5px;
   font-weight: 700;
-  color: var(--mint);
+  color: var(--mint-ink);
 }
 .live-row__meta small {
   font-size: 11px;
@@ -322,7 +322,7 @@
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 13.5px;
-  color: var(--mint);
+  color: var(--mint-ink);
   flex: none;
 }
 .proof-toast.leaving {

@@ -325,6 +325,48 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   console.log("✓ community: feed, voting, sorting, scopes, comments, posting, search, save");
 }
 
+/* ---------------- cross-page professionalism / a11y ---------------- */
+{
+  const exists = (f) => {
+    try {
+      readFileSync(join(root, f));
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  for (const f of ["404.html", "robots.txt", "sitemap.xml", "site.webmanifest"]) {
+    if (!exists(f)) throw new Error("professional site file missing: " + f);
+  }
+  for (const file of ["index.html", "dashboard.html", "community.html"]) {
+    const dom = loadPage(file);
+    const doc = dom.window.document;
+    if (!doc.querySelector(".skip-link[href='#main']") || !doc.getElementById("main"))
+      throw new Error(file + ": skip link / #main target missing");
+    if (!doc.querySelector('meta[name="theme-color"]')) throw new Error(file + ": theme-color missing");
+    if (!doc.querySelector('link[rel="manifest"]')) throw new Error(file + ": web manifest missing");
+    if (!doc.querySelector('link[rel="apple-touch-icon"]')) throw new Error(file + ": touch icon missing");
+    if (doc.querySelectorAll("h1").length !== 1) throw new Error(file + ": must have exactly one h1");
+    const imgs = [...doc.querySelectorAll("img")];
+    if (imgs.some((i) => !i.getAttribute("alt"))) throw new Error(file + ": img without alt");
+    if (imgs.some((i) => !i.getAttribute("width") || !i.getAttribute("height")))
+      throw new Error(file + ": img without intrinsic dimensions");
+    for (const d of doc.querySelectorAll(".modal")) {
+      if (d.getAttribute("role") !== "dialog" || d.getAttribute("aria-modal") !== "true")
+        throw new Error(file + ": modal missing dialog semantics");
+    }
+  }
+  const landing = loadPage("index.html").window.document;
+  const burger = landing.querySelector(".nav__burger");
+  if (!burger || burger.getAttribute("aria-expanded") !== "false" || !burger.getAttribute("aria-controls"))
+    throw new Error("landing burger missing aria state");
+  const dash = loadPage("dashboard.html").window.document;
+  const menuBtn = dash.querySelector(".menu-btn");
+  if (!menuBtn || menuBtn.getAttribute("aria-expanded") !== "false")
+    throw new Error("dashboard menu button missing aria state");
+  console.log("✓ professionalism: skip links, metadata, a11y semantics, manifest, 404/robots/sitemap");
+}
+
 if (errors.length) {
   console.error("PAGE ERRORS:\n" + errors.join("\n"));
   process.exit(1);
