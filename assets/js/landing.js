@@ -105,7 +105,14 @@
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const merchant = merchantSel.options[merchantSel.selectedIndex].text;
+      const merchant =
+        merchantSel.selectedIndex >= 0
+          ? merchantSel.options[merchantSel.selectedIndex].text
+          : merchantSel.value;
+      if (!merchant) {
+        ui.toast("Pick a merchant first", "Choose which company this card is for.", "warn");
+        return;
+      }
       const days = parseInt(lengthSel.value, 10);
       const lockDate = utils.addDays(new Date(), days);
 

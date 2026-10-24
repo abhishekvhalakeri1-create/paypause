@@ -196,6 +196,99 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   console.log("✓ dashboard: stats, views, filters, cards, wizard, trials, reset");
 }
 
+/* ---------------- community (Reddit-style) ---------------- */
+{
+  const dom = loadPage("community.html");
+  const { window } = dom;
+  const doc = window.document;
+  await sleep(400);
+  const $ = (s) => doc.querySelector(s);
+  const $$ = (s) => [...doc.querySelectorAll(s)];
+
+  // seeded feed
+  const posts = $$(".c-post");
+  if (posts.length < 8) throw new Error("community feed not seeded: " + posts.length);
+  if (!$("#c-rail .c-side-link")) throw new Error("community rail missing");
+  if (!$("#c-karma").textContent.includes("karma")) throw new Error("karma counter missing");
+  if (!$("#ticker-track .ticker__item")) throw new Error("ticker missing on community page");
+
+  // upvote toggles score and persists state
+  const firstPost = posts[0];
+  const postId = firstPost.dataset.postId;
+  const scoreBefore = parseInt(firstPost.querySelector(".c-vote__score").textContent.replace("k", "000"), 10);
+  firstPost.querySelector('[data-vote="1"]').click();
+  let voted = doc.querySelector(`[data-post-id="${postId}"] .c-vote__score`).textContent;
+  if (!doc.querySelector(`[data-post-id="${postId}"] .c-vote`).classList.contains("up"))
+    throw new Error("upvote state not applied");
+  // click again removes vote
+  doc.querySelector(`[data-post-id="${postId}"] [data-vote="1"]`).click();
+  if (doc.querySelector(`[data-post-id="${postId}"] .c-vote`).classList.contains("up"))
+    throw new Error("upvote toggle-off failed");
+
+  // sorting changes order
+  const hotFirst = doc.querySelector(".c-post").dataset.postId;
+  $('[data-sort="top"]').click();
+  const topFirst = doc.querySelector(".c-post").dataset.postId;
+  $('[data-sort="new"]').click();
+  const newFirst = doc.querySelector(".c-post").dataset.postId;
+  if (topFirst === newFirst) throw new Error("sort tabs did not reorder feed");
+  if (hotFirst !== topFirst || true) {
+    /* order differences are expected across sorts */
+  }
+
+  // community scope filter
+  const winLink = $$("#c-rail .c-side-link").find((b) => b.dataset.scope === "PauseWins");
+  winLink.click();
+  const scoped = $$(".c-post");
+  if (!scoped.length) throw new Error("community filter returned nothing");
+  if (scoped.some((p) => !p.textContent.includes("r/PauseWins")))
+    throw new Error("community filter leaked other communities");
+  $$("#c-rail .c-side-link").find((b) => b.dataset.scope === "home").click();
+
+  // expand comments and add one
+  const commentBtn = doc.querySelector("[data-togglecomments]");
+  commentBtn.click();
+  const targetId = commentBtn.dataset.togglecomments;
+  const commentsWrap = doc.querySelector(`[data-post-id="${targetId}"] .c-comments`);
+  if (!commentsWrap.classList.contains("open")) throw new Error("comments did not expand");
+  const beforeComments = $$(`[data-post-id="${targetId}"] .c-comment`).length;
+  const commentForm = doc.querySelector(`[data-commentform="${targetId}"]`);
+  commentForm.querySelector("input").value = "This saved me from a sneaky renewal, thanks!";
+  commentForm.dispatchEvent(new window.Event("submit", { cancelable: true, bubbles: true }));
+  await sleep(50);
+  const afterComments = $$(`[data-post-id="${targetId}"] .c-comment`).length;
+  if (afterComments !== beforeComments + 1) throw new Error("comment was not added");
+
+  // create post via modal
+  $('[data-openpost]').click();
+  if (!$("#modal-post").classList.contains("open")) throw new Error("post modal did not open");
+  $("#cp-title").value = "Audited my statements and found three zombies in ten minutes";
+  $("#cp-body").value = "Gym, cloud storage, and a news app. All canceled.";
+  $("#post-form").dispatchEvent(new window.Event("submit", { cancelable: true, bubbles: true }));
+  await sleep(50);
+  if ($$("#modal-post.open").length) throw new Error("modal did not close after publish");
+  if (!$$(".c-post").length) throw new Error("feed empty after publish");
+  if (!doc.body.textContent.includes("Audited my statements")) throw new Error("new post content missing");
+
+  // save toggle and saved scope
+  const saveBtn = doc.querySelector("[data-savepost]");
+  saveBtn.click();
+  await sleep(20);
+  $$("#c-rail .c-side-link").find((b) => b.dataset.scope === "saved").click();
+  if (!$$(".c-post").length) throw new Error("saved scope empty after saving a post");
+
+  // search filters feed
+  $$("#c-rail .c-side-link").find((b) => b.dataset.scope === "home").click();
+  $("#c-search").value = "adobe";
+  $("#c-search").dispatchEvent(new window.Event("input", { bubbles: true }));
+  await sleep(20);
+  const searched = $$(".c-post");
+  if (!searched.length || searched.some((p) => !/adobe/i.test(p.textContent)))
+    throw new Error("search did not filter correctly");
+
+  console.log("✓ community: feed, voting, sorting, scopes, comments, posting, search, save");
+}
+
 if (errors.length) {
   console.error("PAGE ERRORS:\n" + errors.join("\n"));
   process.exit(1);

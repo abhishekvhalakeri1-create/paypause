@@ -87,7 +87,7 @@
     return `${pad2(d.getMonth() + 1)}/${String(d.getFullYear()).slice(2)}`;
   }
 
-  function makepauseCard(overrides = {}) {
+  function makePauseCard(overrides = {}) {
     const now = Date.now();
     return Object.assign(
       {
@@ -280,22 +280,22 @@
     ];
 
     const cards = [
-      makepauseCard({
+      makePauseCard({
         merchant: "Notion AI",
         cap: 1.0,
         autoLockAt: now + 38 * HOUR,
       }),
-      makepauseCard({
+      makePauseCard({
         merchant: "Figma Professional",
         cap: 0.0,
         autoLockAt: now + 2 * DAY + 6 * HOUR,
       }),
-      makepauseCard({
+      makePauseCard({
         merchant: "Cursor Pro",
         cap: 0.0,
         autoLockAt: now + 10 * DAY + 9 * HOUR,
       }),
-      makepauseCard({
+      makePauseCard({
         merchant: "Adobe Creative Cloud",
         cap: 0.0,
         autoLockAt: now - 2 * DAY,
@@ -418,7 +418,7 @@
       generateCardNumber,
       generateCVC,
       generateExpiry,
-      makepauseCard,
+      makePauseCard,
       CATEGORY_COLORS,
       DAY,
       HOUR,

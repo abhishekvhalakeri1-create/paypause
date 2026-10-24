@@ -632,7 +632,11 @@
   $("#card-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const isCustom = fMerchant.value === "__custom";
-    const merchant = isCustom ? fCustom.value.trim() : fMerchant.options[fMerchant.selectedIndex].text;
+    const merchant = isCustom
+      ? fCustom.value.trim()
+      : fMerchant.selectedIndex >= 0
+      ? fMerchant.options[fMerchant.selectedIndex].text
+      : fMerchant.value;
     if (!merchant) {
       ui.toast("Merchant name required", "Tell us which company this card is for.", "warn");
       return;
@@ -643,7 +647,7 @@
       ui.toast("Pick a future lock date", "The auto-lock has to happen after today.", "warn");
       return;
     }
-    const card = utils.makepauseCard({
+    const card = utils.makePauseCard({
       merchant,
       cap,
       autoLockAt: lockAt,
@@ -689,6 +693,8 @@
   }
 
   function runWizardWork() {
+    if (!cancelTarget) return;
+    const target = cancelTarget;
     setWizardPane(2);
     const steps = $$("#wz-working li");
     steps.forEach((li) => li.classList.remove("done"));
@@ -696,22 +702,24 @@
       setTimeout(() => li.classList.add("done"), 500 + i * 650);
     });
     setTimeout(() => {
+      // the subscription may have been removed/reset while the wizard was running
+      if (!state.subs.includes(target)) return;
       // commit the cancellation
-      cancelTarget.status = "canceled";
-      state.savedThisYear += cancelTarget.amount * 12;
+      target.status = "canceled";
+      state.savedThisYear += target.amount * 12;
       pushActivity(
         "ok",
-        `Subscription canceled · ${cancelTarget.merchant}`,
+        `Subscription canceled · ${target.merchant}`,
         "Kill the Bill — merchant confirmed, no renewal scheduled",
-        `-${utils.money(cancelTarget.amount)}/mo`
+        `-${utils.money(target.amount)}/mo`
       );
       save();
       renderAll();
       setWizardPane(3);
       ui.toast(
         "Bill killed",
-        `${cancelTarget.merchant} won't renew. ~${utils.money(
-          cancelTarget.amount * 12,
+        `${target.merchant} won't renew. ~${utils.money(
+          target.amount * 12,
           false
         )}/yr stays in your pocket.`,
         "ok",
@@ -733,6 +741,7 @@
 
     if (t.dataset.reactivate) {
       const s = state.subs.find((x) => x.id === t.dataset.reactivate);
+      if (!s) return;
       s.status = "active";
       s.renewal = utils.addDays(new Date(), 14).toISOString();
       pushActivity("card", `Reactivated · ${s.merchant}`, "Renewal moved 14 days out", "");
@@ -743,6 +752,7 @@
 
     if (t.dataset.protect) {
       const s = state.subs.find((x) => x.id === t.dataset.protect);
+      if (!s) return;
       return openCardModal(s.merchant);
     }
 
@@ -755,6 +765,7 @@
     // trials
     if (t.dataset.extend) {
       const tr = state.trials.find((x) => x.id === t.dataset.extend);
+      if (!tr) return;
       tr.endsAt += 3 * utils.DAY;
       const card = state.cards.find((c) => c.id === tr.cardId);
       if (card) card.autoLockAt = tr.endsAt;
@@ -766,6 +777,7 @@
 
     if (t.dataset.killtrial) {
       const tr = state.trials.find((x) => x.id === t.dataset.killtrial);
+      if (!tr) return;
       const card = state.cards.find((c) => c.id === tr.cardId);
       if (card) {
         card.status = "locked";
@@ -794,6 +806,7 @@
 
     if (t.dataset.lockcard) {
       const c = state.cards.find((x) => x.id === t.dataset.lockcard);
+      if (!c) return;
       c.status = "locked";
       c.autoLockAt = Date.now();
       pushActivity("block", `Pause Card locked · ${c.merchant}`, "Manual lock — all charges declined", "");
@@ -804,6 +817,7 @@
 
     if (t.dataset.unlockcard) {
       const c = state.cards.find((x) => x.id === t.dataset.unlockcard);
+      if (!c) return;
       c.status = "active";
       c.autoLockAt = Date.now() + 7 * utils.DAY;
       save();
@@ -813,6 +827,7 @@
 
     if (t.dataset.destroycard) {
       const c = state.cards.find((x) => x.id === t.dataset.destroycard);
+      if (!c) return;
       // two-step confirm
       if (!t.dataset.confirm) {
         t.dataset.confirm = "1";
@@ -835,7 +850,10 @@
 
   // wizard buttons
   $("#wz-next").addEventListener("click", runWizardWork);
-  $("#wz-done").addEventListener("click", () => ui.closeModal("modal-cancel"));
+  $("#wz-done").addEventListener("click", () => {
+    cancelTarget = null;
+    ui.closeModal("modal-cancel");
+  });
 
   /* ---------------- search ---------------- */
   $("#sub-search").addEventListener("input", (e) => {
